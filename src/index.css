@@ -14,3 +14,7 @@
   font-family: "Merriweather", serif;
   font-optical-sizing: auto;
 }
+
+.root{
+  min-height: 100vh;
+}
