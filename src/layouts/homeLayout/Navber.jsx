@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import { GoArrowUpRight } from "react-icons/go";
 import Logo from "../../components/Logo";
+import ThemeToggle from "../../components/ThemeToggle";
 
 const Navber = () => {
   const links = (
@@ -29,7 +30,7 @@ const Navber = () => {
     </>
   );
   return (
-    <div className=" bg-base-100 shadow-sm  max-w-7xl mx-4 lg:mx-auto rounded-3xl px-2 my-4 ">
+    <div className=" bg-base-100 shadow-[0_4px_12px_rgba(0,0,0,0.25)]   max-w-7xl mx-2 lg:mx-auto rounded-3xl px-2 my-4 ">
       <div className="navbar">
         <div className=" navbar-start ">
           <div className="dropdown">
@@ -52,7 +53,7 @@ const Navber = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-10 w-52 p-2 shadow"
             >
               {links}
             </ul>
@@ -101,6 +102,7 @@ const Navber = () => {
             <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
             <span class="relative text-base font-semibold">Log In</span>
           </Link>
+          <ThemeToggle/>
         </div>
       </div>
     </div>

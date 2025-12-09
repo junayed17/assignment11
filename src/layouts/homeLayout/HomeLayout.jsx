@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "./Footer";
 import Navber from "./Navber";
+import ThemeToggle from "../../components/ThemeToggle";
 
 const HomeLayout = () => {
   return (
@@ -9,11 +10,6 @@ const HomeLayout = () => {
         <Navber />
       </header>
       <main>
-        <input
-          type="checkbox"
-          value="synthwave"
-          className="toggle theme-controller"
-        />
       </main>
       <footer>
         <Footer />
