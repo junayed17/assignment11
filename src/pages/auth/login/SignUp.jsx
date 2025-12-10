@@ -1,12 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router";
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  function handleSignUp(data) {
+    console.log(data);
+  }
+
   return (
     <div className="flex items-center justify-center min-h-[50vh] p-4 my-10">
       <form
-        action=""
         className="w-full max-w-lg shadow-2xl bg-base-100 px-8 py-8 rounded-2xl"
+        onSubmit={handleSubmit(handleSignUp)}
       >
         <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading font-bold text-center">
           Create an Account
@@ -24,10 +35,16 @@ const SignUp = () => {
             </label>
             <input
               class="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
-              placeholder="Example@gmail.com"
+              placeholder="Md. Example"
               type="text"
               id="name"
+              {...register("name", {
+                required: "Password is required",
+              })}
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
           </div>
           <div className="my-2">
             <label
@@ -41,13 +58,20 @@ const SignUp = () => {
               placeholder="Example@gmail.com"
               type="text"
               id="email"
+              {...register("email", {
+                required: "Email is required",
+              })}
             />
+
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="my-2">
             <label
               class="block text-blue-400 text-sm md:text-lg font-medium mb-2 bodyFont"
-              for="email"
+              for="photo"
             >
               Selecy image
             </label>
@@ -55,8 +79,13 @@ const SignUp = () => {
               class="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
               placeholder="Example@gmail.com"
               type="file"
-              id="email"
+              id="photo"
+              {...register("photo", { required: "Image is required" })}
             />
+
+            {errors.photo && (
+              <p className="text-red-500 text-sm">{errors.photo.message}</p>
+            )}
           </div>
 
           <div className="my-2">
@@ -68,12 +97,31 @@ const SignUp = () => {
             </label>
             <input
               class="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
-              placeholder="Example@gmail.com"
+              placeholder="Abc123!@"
               type="text"
               id="pass"
+              {...register("password", {
+                required: "Password is required",
+                pattern: {
+                  value:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$/,
+                  message:
+                    "Password must include uppercase, lowercase, number & special character",
+                },
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                }
+              })}
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
-          <button class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4">
+          <button
+            class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
+            type="submit"
+          >
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
             <span class="absolute bottom-0 left-0 h-full -ml-2">
               <svg
