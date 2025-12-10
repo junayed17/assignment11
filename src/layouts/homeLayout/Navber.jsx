@@ -67,7 +67,7 @@ const Navber = () => {
         </div>
         <div className="navbar-end">
           <Link
-            to="/signIn"
+            to="/login"
             class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group"
           >
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-56 group-hover:h-56"></span>

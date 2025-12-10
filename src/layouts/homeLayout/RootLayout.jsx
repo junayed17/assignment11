@@ -6,7 +6,7 @@ import { Outlet } from "react-router";
 
 const HomeLayout = () => {
   return (
-    <>
+    <div className="bg-base-200">
       <header>
         <Navber />
       </header>
@@ -16,7 +16,7 @@ const HomeLayout = () => {
       <footer className="max-w-[1440px] mx-2 lg:mx-auto align-bottom">
         <Footer />
       </footer>
-    </>
+    </div>
   );
 };
 
