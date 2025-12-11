@@ -11,7 +11,7 @@ import { Toaster } from 'react-hot-toast'
 
 function AppWrapper() {
   useEffect(() => {
-    AOS.init({ duration: 2000, once: false });
+    AOS.init({ duration: 2000, once: true });
   }, []);
 
   return <RouterProvider router={router} />;

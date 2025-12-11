@@ -3,6 +3,8 @@ import { auth } from "../firebase/firebase.config";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 export const AuthContextData = createContext();
@@ -18,11 +20,21 @@ const AuthContext = ({ children }) => {
     return updateProfile(auth.currentUser, userData);
   }
 
+  function handleLogOut() {
+    return signOut(auth)
+  }
+
+
+  function handleSignInWithEmailPass(email,pass) {
+   return signInWithEmailAndPassword(auth,email,pass)
+  }
   const authData = {
     handleSignUpWithEmail,
     handleUpdateProfile,
     user,
     setUser,
+    handleLogOut,
+    handleSignInWithEmailPass,
   };
 
    useEffect(() => {

@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import useAuthHook from "../../../customHook/useAuthHook";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -9,10 +11,16 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-
+  const { handleSignInWithEmailPass } = useAuthHook();
   function handleSignIn(data) {
     console.log(data);
-    
+    handleSignInWithEmailPass(data.email,data.password).then((result) => {
+      console.log(result);
+      if (result.user.accessToken) {
+        toast.success("log in sucessfull");
+      }
+    }).catch(err=>toast.error(err.code)
+    )
   }
 
   return (

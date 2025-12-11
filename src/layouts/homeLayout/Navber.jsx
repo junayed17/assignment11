@@ -4,34 +4,43 @@ import { GoArrowUpRight } from "react-icons/go";
 import Logo from "../../components/Logo";
 import ThemeToggle from "../../components/ThemeToggle";
 import useAuthHook from "../../customHook/useAuthHook";
+import toast from "react-hot-toast";
 
 const Navber = () => {
-  const { user } = useAuthHook();
+  const { user, handleLogOut } = useAuthHook();
 
   console.log(user);
-  if (!user) {
-    return <h2>loading</h2>
+  // if (!user) {
+  //   return <h2>loading</h2>
+  // }
+
+  function handleSignOut() {
+    handleLogOut().then(()=>{
+      toast.success("Logout Sucessfull")
+    })
   }
+
+
 
   const links = (
     <>
       <li>
-        <NavLink className="text-base font-medium text-[#00a8ff] hover:text-blue-500 duration-300">
+        <NavLink className=" font-medium text-[#00a8ff] bodyFont hover:text-blue-500 duration-300 text-lg">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-base font-medium text-[#00a8ff] hover:text-blue-500 duration-300">
+        <NavLink className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300">
           Books
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-base font-medium text-[#00a8ff] hover:text-blue-500 duration-300">
+        <NavLink className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300">
           About
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-base font-medium text-[#00a8ff] hover:text-blue-500 duration-300">
+        <NavLink className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300">
           Coverage
         </NavLink>
       </li>
@@ -75,17 +84,21 @@ const Navber = () => {
         </div>
 
         <div className="navbar-end">
-
-          <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300">
-            <img
-              className="h-full w-full rounded-full object-cover"
-              src={user.photoURL}
-              alt="user"
-            />
-          </div>
+          {user ? (
+            <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300">
+              <img
+                className="h-full w-full rounded-full object-cover"
+                src={user.photoURL}
+                alt="user"
+              />
+            </div>
+          ) : (
+            ""
+          )}
 
           <Link
-            to={user ? "" : "/login"}
+            to={user ? "/" : "/login"}
+            onClick={user ? handleSignOut : ""}
             class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group"
           >
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
