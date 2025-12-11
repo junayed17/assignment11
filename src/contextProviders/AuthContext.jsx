@@ -11,22 +11,26 @@ export const AuthContextData = createContext();
 
 const AuthContext = ({ children }) => {
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState(true);
 
   function handleSignUpWithEmail(email, password) {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
   function handleUpdateProfile(userData) {
+    setLoading(true);
     return updateProfile(auth.currentUser, userData);
   }
 
   function handleLogOut() {
-    return signOut(auth)
+    setLoading(true);
+    return signOut(auth);
   }
 
-
-  function handleSignInWithEmailPass(email,pass) {
-   return signInWithEmailAndPassword(auth,email,pass)
+  function handleSignInWithEmailPass(email, pass) {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, pass);
   }
   const authData = {
     handleSignUpWithEmail,
@@ -35,15 +39,17 @@ const AuthContext = ({ children }) => {
     setUser,
     handleLogOut,
     handleSignInWithEmailPass,
+    loading,
   };
 
-   useEffect(() => {
-     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-       setUser(currentUser || null);
-     });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser || null);
+      setLoading(false);
+    });
 
-     return () => unsubscribe();
-   }, []);
+    return () => unsubscribe();
+  }, []);
 
   return <AuthContextData value={authData}>{children}</AuthContextData>;
 };

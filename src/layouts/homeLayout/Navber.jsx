@@ -5,13 +5,14 @@ import Logo from "../../components/Logo";
 import ThemeToggle from "../../components/ThemeToggle";
 import useAuthHook from "../../customHook/useAuthHook";
 import toast from "react-hot-toast";
+import Loader from "../../components/Loader";
 
 const Navber = () => {
   const { user, handleLogOut } = useAuthHook();
 
-  console.log(user);
+  // console.log(user);
   // if (!user) {
-  //   return <h2>loading</h2>
+  //   return <Loader/>
   // }
 
   function handleSignOut() {
@@ -25,12 +26,18 @@ const Navber = () => {
   const links = (
     <>
       <li>
-        <NavLink className=" font-medium text-[#00a8ff] bodyFont hover:text-blue-500 duration-300 text-lg">
+        <NavLink
+          to="/"
+          className=" font-medium text-[#00a8ff] bodyFont hover:text-blue-500 duration-300 text-lg"
+        >
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300">
+        <NavLink
+          to="/books"
+          className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300"
+        >
           Books
         </NavLink>
       </li>
@@ -42,6 +49,14 @@ const Navber = () => {
       <li>
         <NavLink className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300">
           Coverage
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/profile"
+          className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300"
+        >
+          Profile
         </NavLink>
       </li>
     </>

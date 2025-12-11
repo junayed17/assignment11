@@ -1,11 +1,14 @@
 import React, { use } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
-import AuthContext, { AuthContextData } from "../../../context/AuthContext";
+import AuthContext, {
+  AuthContextData,
+} from "../../../contextProviders/AuthContext";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { handleSignUpWithEmail, handleUpdateProfile,setUser} = use(AuthContextData);
+  const { handleSignUpWithEmail, handleUpdateProfile, setUser } =
+    use(AuthContextData);
   const {
     register,
     handleSubmit,
@@ -31,17 +34,17 @@ const SignUp = () => {
           handleUpdateProfile({
             displayName: data.name,
             photoURL: result.data.display_url,
-          }).then(()=>{
+          }).then(() => {
             if (userCredential.user.accessToken) {
               setUser(userCredential.user);
-              toast.success("Account created sucessfully!")
+              toast.success("Account created sucessfully!");
             }
-          })
+          });
         });
     });
   }
   return (
-    <div className="flex items-center justify-center min-h-[50vh] p-4 my-10">
+    <div className="flex items-center justify-center min-h-[50vh] my-10">
       <form
         className="w-full max-w-lg shadow-2xl bg-base-100 px-8 py-8 rounded-2xl"
         onSubmit={handleSubmit(handleSignUp)}

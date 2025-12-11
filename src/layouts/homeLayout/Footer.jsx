@@ -1,6 +1,5 @@
-
 import { NavLink } from "react-router";
-import { AuthContextData } from "../../context/AuthContext";
+import { AuthContextData } from "../../contextProviders/AuthContext";
 
 const Footer = () => {
   return (
