@@ -1,10 +1,18 @@
-import React from "react";
+import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import { GoArrowUpRight } from "react-icons/go";
 import Logo from "../../components/Logo";
 import ThemeToggle from "../../components/ThemeToggle";
+import useAuthHook from "../../customHook/useAuthHook";
 
 const Navber = () => {
+  const { user } = useAuthHook();
+
+  console.log(user);
+  if (!user) {
+    return <h2>loading</h2>
+  }
+
   const links = (
     <>
       <li>
@@ -65,9 +73,19 @@ const Navber = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
+
         <div className="navbar-end">
+
+          <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300">
+            <img
+              className="h-full w-full rounded-full object-cover"
+              src={user.photoURL}
+              alt="user"
+            />
+          </div>
+
           <Link
-            to="/login"
+            to={user ? "" : "/login"}
             class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group"
           >
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
@@ -100,9 +118,11 @@ const Navber = () => {
               </svg>
             </span>
             <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
-            <span class="relative text-base font-semibold">Log In</span>
+            <span class="relative text-base font-semibold">
+              {user ? "LogOut" : "login"}
+            </span>
           </Link>
-          <ThemeToggle/>
+          <ThemeToggle />
         </div>
       </div>
     </div>

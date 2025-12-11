@@ -1,8 +1,11 @@
-import React from "react";
+import React, { use } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import AuthContext, { AuthContextData } from "../../../context/AuthContext";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const { handleSignUpWithEmail, handleUpdateProfile,setUser} = use(AuthContextData);
   const {
     register,
     handleSubmit,
@@ -11,8 +14,32 @@ const SignUp = () => {
 
   function handleSignUp(data) {
     console.log(data);
-  }
+    handleSignUpWithEmail(data.email, data.password).then((userCredential) => {
+      // console.log(userCredential.user.accessToken);
+      const formData = new FormData();
+      formData.append("image", data.photo[0]);
+      const imgUrl = `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_IMG_BB_API_KEY
+      }`;
 
+      fetch(imgUrl, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          handleUpdateProfile({
+            displayName: data.name,
+            photoURL: result.data.display_url,
+          }).then(()=>{
+            if (userCredential.user.accessToken) {
+              setUser(userCredential.user);
+              toast.success("Account created sucessfully!")
+            }
+          })
+        });
+    });
+  }
   return (
     <div className="flex items-center justify-center min-h-[50vh] p-4 my-10">
       <form
@@ -111,7 +138,7 @@ const SignUp = () => {
                 minLength: {
                   value: 8,
                   message: "Password must be at least 8 characters",
-                }
+                },
               })}
             />
             {errors.password && (

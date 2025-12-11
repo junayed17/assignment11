@@ -5,6 +5,8 @@ import { RouterProvider } from 'react-router'
 import router from './routes/Router'
 import AOS from "aos";
 import "aos/dist/aos.css";
+import AuthContext from './context/AuthContext'
+import { Toaster } from 'react-hot-toast'
 
 
 function AppWrapper() {
@@ -16,10 +18,12 @@ function AppWrapper() {
 }
 
 
-createRoot(document.getElementById('root')).render(
-
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AppWrapper/>
+    <AuthContext>
+      <AppWrapper />
+      <Toaster />
+    </AuthContext>
     {/* <RouterProvider router={router}/> */}
   </StrictMode>
-)
+);
