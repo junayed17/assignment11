@@ -40,6 +40,7 @@ const AuthContext = ({ children }) => {
     handleLogOut,
     handleSignInWithEmailPass,
     loading,
+    setLoading
   };
 
   useEffect(() => {
