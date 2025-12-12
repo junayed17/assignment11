@@ -7,6 +7,7 @@ import SignUp from "../pages/auth/login/SignUp";
 import Books from "../pages/Books/Books";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../pages/profile/Profile";
+import Error404 from "../components/Error404";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"*",
+    element:<Error404/>
+  }
 ]);
 
 export default router;
