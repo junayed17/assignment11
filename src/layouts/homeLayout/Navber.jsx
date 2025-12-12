@@ -65,7 +65,7 @@ const Navber = () => {
     <div className=" bg-base-100 shadow-[0_4px_12px_rgba(0,0,0,0.25)]   max-w-[1440px] mx-2 lg:mx-auto rounded-3xl px-2 my-4 ">
       <div className="navbar">
         <div className=" navbar-start ">
-          <div className="dropdown">
+          <div className="dropdown z-10">
             <div tabIndex={0} role="button" className="btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

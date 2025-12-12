@@ -1,24 +1,40 @@
 import React, { use } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import AuthContext, {
   AuthContextData,
 } from "../../../contextProviders/AuthContext";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { handleSignUpWithEmail, handleUpdateProfile, setUser } =
-    use(AuthContextData);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const {
+    handleSignUpWithEmail,
+    handleUpdateProfile,
+    setUser,
+    HandleSignInWithGoogle,
+  } = use(AuthContextData);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  function sighUpWithGoogle() {
+    HandleSignInWithGoogle()
+      .then((result) => {
+        if (result.user) {
+          navigate(location.state ? location.state : "/");
+          toast.success("Account created sucessfully!");
+        }
+      })
+      .catch((err) => toast.error(err.code));
+  }
+
   function handleSignUp(data) {
     console.log(data);
     handleSignUpWithEmail(data.email, data.password).then((userCredential) => {
-      // console.log(userCredential.user.accessToken);
       const formData = new FormData();
       formData.append("image", data.photo[0]);
       const imgUrl = `https://api.imgbb.com/1/upload?key=${
@@ -37,6 +53,7 @@ const SignUp = () => {
           }).then(() => {
             if (userCredential.user.accessToken) {
               setUser(userCredential.user);
+              navigate(location.state ? location.state : "/");
               toast.success("Account created sucessfully!");
             }
           });
@@ -193,7 +210,11 @@ const SignUp = () => {
             </Link>
           </p>
 
-          <button class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4">
+          <button
+            class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
+            type="button"
+            onClick={sighUpWithGoogle}
+          >
             <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
             <span class="absolute bottom-0 left-0 h-full -ml-2">
               <svg
