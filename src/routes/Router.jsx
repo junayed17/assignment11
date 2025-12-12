@@ -8,6 +8,7 @@ import Books from "../pages/Books/Books";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../pages/profile/Profile";
 import Error404 from "../components/Error404";
+import Dashboard from "../layouts/dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -45,9 +46,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:"*",
-    element:<Error404/>
-  }
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "*",
+    element: <Error404 />,
+  },
 ]);
 
 export default router;

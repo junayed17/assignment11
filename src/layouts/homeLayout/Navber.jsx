@@ -59,6 +59,14 @@ const Navber = () => {
           Profile
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/dashboard"
+          className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300"
+        >
+          Dashboard
+        </NavLink>
+      </li>
     </>
   );
   return (
