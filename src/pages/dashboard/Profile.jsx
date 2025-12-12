@@ -84,7 +84,7 @@ const Profile = () => {
   }
 
   return (
-    <div class=" cursor-pointer transform transition-all duration-500 hover:scale-105  max-w-[500px] mx-auto  my-20 ">
+    <div class=" cursor-pointer transform transition-all duration-500 hover:scale-105  max-w-[500px] mx-auto  my-10 ">
       <div class="text-white rounded-3xl border border-blue-500/20 bg-gray-300 shadow-2xl duration-700 z-10 relative backdrop-blur-xl hover:border-blue-500/40 overflow-hidden hover:shadow-blue-500/10 hover:shadow-3xl w-full">
         <div class="p-4 md:p-8 relative z-10 w-full">
           <div class="flex flex-col items-center text-center w-full">

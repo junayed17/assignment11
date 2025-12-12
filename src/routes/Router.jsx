@@ -6,9 +6,11 @@ import Login from "../pages/auth/login/Login";
 import SignUp from "../pages/auth/login/SignUp";
 import Books from "../pages/Books/Books";
 import PrivateRoute from "./PrivateRoute";
-import Profile from "../pages/profile/Profile";
+import Profile from "../pages/dashboard/Profile";
 import Error404 from "../components/Error404";
 import Dashboard from "../layouts/dashboard/Dashboard";
+import AddBook from "../pages/dashboard/AddBook";
+import MyBooks from "../pages/dashboard/MyBooks";
 
 const router = createBrowserRouter([
   {
@@ -24,14 +26,6 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Books />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/profile",
-        element: (
-          <PrivateRoute>
-            <Profile />
           </PrivateRoute>
         ),
       },
@@ -52,6 +46,20 @@ const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "/dashboard/addBook",
+        element: <AddBook />,
+      },
+      {
+        path: "/dashboard/myBooks",
+        element: <MyBooks />,
+      },
+      {
+        path: "/dashboard/myProfile",
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: "*",
