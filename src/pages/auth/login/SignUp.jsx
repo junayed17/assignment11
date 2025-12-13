@@ -5,10 +5,12 @@ import AuthContext, {
   AuthContextData,
 } from "../../../contextProviders/AuthContext";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../customHook/useAxiosSecure";
 
 const SignUp = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure=useAxiosSecure();
   const {
     handleSignUpWithEmail,
     handleUpdateProfile,
@@ -27,6 +29,9 @@ const SignUp = () => {
         if (result.user) {
           navigate(location.state ? location.state : "/");
           toast.success("Account created sucessfully!");
+          axiosSecure
+            .post("/user", result.user)
+            .then((data) => console.log(data.data));
         }
       })
       .catch((err) => toast.error(err.code));
@@ -53,6 +58,8 @@ const SignUp = () => {
           }).then(() => {
             if (userCredential.user.accessToken) {
               setUser(userCredential.user);
+              console.log(userCredential.user);
+              axiosSecure.post("/user", userCredential.user)
               navigate(location.state ? location.state : "/");
               toast.success("Account created sucessfully!");
             }

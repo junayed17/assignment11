@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import useAuthHook from "../../../customHook/useAuthHook";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../customHook/useAxiosSecure";
 
 const Login = () => {
   const location = useLocation();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -21,7 +23,7 @@ const Login = () => {
         console.log(result);
         if (result.user.accessToken) {
           toast.success("log in sucessfull");
-           navigate(location.state ? location.state : "/");
+          navigate(location.state ? location.state : "/");
         }
       })
       .catch((err) => toast.error(err.code));
@@ -31,8 +33,9 @@ const Login = () => {
     HandleSignInWithGoogle()
       .then((result) => {
         if (result.user) {
-          navigate(location.state ? location.state: "/")
+          navigate(location.state ? location.state : "/");
           toast.success("log in sucessfull");
+          axiosSecure.post("/user", result.user);
         }
       })
       .catch((err) => toast.error(err.code));

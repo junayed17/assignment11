@@ -6,6 +6,7 @@ import ThemeToggle from "../../components/ThemeToggle";
 import useAuthHook from "../../customHook/useAuthHook";
 import toast from "react-hot-toast";
 import Loader from "../../components/Loader";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const Navber = () => {
   const { user, handleLogOut } = useAuthHook();
@@ -20,8 +21,6 @@ const Navber = () => {
       toast.success("Logout Sucessfull")
     })
   }
-
-
 
   const links = (
     <>

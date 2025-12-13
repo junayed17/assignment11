@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 const AddBook = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit,formState:{errors} } = useForm();
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
@@ -29,11 +29,18 @@ const AddBook = () => {
                     Title
                   </label>
                   <input
-                    {...register("title")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg shadow-sm transition"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="xyz"
                     type="text"
+                    {...register("title", {
+                      required: "title is required",
+                    })}
                   />
+                  {errors.title && (
+                    <p className="text-red-500 text-sm">
+                      {errors.title.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Author */}
@@ -42,11 +49,18 @@ const AddBook = () => {
                     Author
                   </label>
                   <input
-                    {...register("author")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg shadow-sm transition"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="Md. Example"
                     type="text"
+                    {...register("author", {
+                      required: "author name is required",
+                    })}
                   />
+                  {errors.author && (
+                    <p className="text-red-500 text-sm">
+                      {errors.author.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Publication */}
@@ -56,10 +70,18 @@ const AddBook = () => {
                   </label>
                   <input
                     {...register("publication")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg shadow-sm transition"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="ABC Publication"
                     type="text"
+                    {...register("publication", {
+                      required: "publication is required",
+                    })}
                   />
+                  {errors.publication && (
+                    <p className="text-red-500 text-sm">
+                      {errors.publication.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Front Image */}
@@ -71,8 +93,16 @@ const AddBook = () => {
                     {...register("image1")}
                     type="file"
                     accept="image/*"
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg shadow-sm"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
+                    {...register("image1", {
+                      required: "Image (Front) is required",
+                    })}
                   />
+                  {errors.image1 && (
+                    <p className="text-red-500 text-sm">
+                      {errors.image1.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Back Image */}
@@ -81,11 +111,36 @@ const AddBook = () => {
                     Book Image (Back)
                   </label>
                   <input
-                    {...register("image2")}
                     type="file"
                     accept="image/*"
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg shadow-sm"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
+                    {...register("image2", {
+                      required: "Image (Back) is required",
+                    })}
                   />
+                  {errors.image2 && (
+                    <p className="text-red-500 text-sm">
+                      {errors.image2.message}
+                    </p>
+                  )}
+                </div>
+                <div className="my-2">
+                  <label className="block text-blue-400 text-sm md:text-lg font-medium mb-2 bodyFont">
+                    Library Name
+                  </label>
+                  <input
+                    type="text"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
+                    placeholder="Library name..."
+                    {...register("Library", {
+                      required: "Library name is required",
+                    })}
+                  />
+                  {errors.Library && (
+                    <p className="text-red-500 text-sm">
+                      {errors.Library.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -98,7 +153,7 @@ const AddBook = () => {
                   </label>
                   <select
                     {...register("category")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg shadow-sm"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     defaultValue=""
                   >
                     <option value="" disabled>
@@ -119,11 +174,18 @@ const AddBook = () => {
                     Edition
                   </label>
                   <input
-                    {...register("edition")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="1, 2, ..."
                     type="number"
+                    {...register("edition", {
+                      required: "edition is required",
+                    })}
                   />
+                  {errors.edition && (
+                    <p className="text-red-500 text-sm">
+                      {errors.edition.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Price */}
@@ -132,11 +194,18 @@ const AddBook = () => {
                     Price
                   </label>
                   <input
-                    {...register("price")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="Price in taka"
                     type="text"
+                    {...register("price", {
+                      required: "price is required",
+                    })}
                   />
+                  {errors.price && (
+                    <p className="text-red-500 text-sm">
+                      {errors.price.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Contact Number */}
@@ -145,11 +214,31 @@ const AddBook = () => {
                     Contact Number
                   </label>
                   <input
-                    {...register("contact")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="017XXXXXXXX"
                     type="number"
+                    {...register("contact", {
+                      required: "Contact number is required",
+                      minLength: {
+                        value: 11,
+                        message: "Contact number must be 11 digits",
+                      },
+                      maxLength: {
+                        value: 11,
+                        message: "Contact number must be 11 digits",
+                      },
+                      pattern: {
+                        value: /^01[0-9]{9}$/,
+                        message:
+                          "Contact number must start with 01 and be 11 digits",
+                      },
+                    })}
                   />
+                  {errors.contact && (
+                    <p className="text-red-500 text-sm">
+                      {errors.contact.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* District */}
@@ -159,7 +248,29 @@ const AddBook = () => {
                   </label>
                   <select
                     {...register("district")}
-                    className="text-sm custom-input w-full px-4 py-2 md:py-4 border border-gray-300 rounded-lg"
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Select region
+                    </option>
+                    <option value="dhaka">Dhaka</option>
+                    <option value="mymensingh">Mymensingh</option>
+                    <option value="rajshahi">Rajshahi</option>
+                    <option value="khulna">Khulna</option>
+                    <option value="barishal">Barishal</option>
+                    <option value="sylhet">Sylhet</option>
+                    <option value="rangpur">Rangpur</option>
+                    <option value="chattogram">Chattogram</option>
+                  </select>
+                </div>
+                <div className="my-2">
+                  <label className="block text-blue-400 text-sm md:text-lg font-medium mb-2 bodyFont">
+                    Select District
+                  </label>
+                  <select
+                    {...register("district")}
+                    className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     defaultValue=""
                   >
                     <option value="" disabled>
@@ -185,10 +296,10 @@ const AddBook = () => {
               </label>
               <textarea
                 {...register("instruction")}
-                className="border border-gray-300 p-4 rounded-lg w-full focus:outline-blue-300"
+                className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                 placeholder="Delivery Instruction.."
                 rows={10}
-              ></textarea>
+              />
             </div>
 
             <div className="text-center">
