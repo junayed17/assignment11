@@ -1,14 +1,75 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
+import useAuthHook from "../../customHook/useAuthHook";
+import toast from "react-hot-toast";
+import { useLoaderData } from "react-router";
 
 const AddBook = () => {
-  const { register, handleSubmit,formState:{errors} } = useForm();
+  const { user } = useAuthHook();
+  const coverPlaces=useLoaderData()
+  const form = document.getElementById("form");
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control
+  } = useForm();
 
-    // image file access: data.image1[0]
-    // POST request er jonno FormData() use korte parba
+  console.log(coverPlaces);
+  const region=coverPlaces.map(ele=>ele.region)
+  const regionWithOutDup = [...new Set(region)];
+  function Districts(region="Dhaka") {
+    const districts=coverPlaces.filter(ele=>ele.region==region)
+    return districts;
+  }
+  const updatedRegion = useWatch({ control, name: "region" });
+
+  const district=Districts(updatedRegion)
+  console.log(district);
+  
+  const axiosSecure = useAxiosSecure();
+
+  async function imageUpload(ImageFile) {
+    const formData = new FormData();
+    formData.append("image", ImageFile);
+    const imgUrl = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMG_BB_API_KEY
+    }`;
+    const uploadedData = await fetch(imgUrl, {
+      method: "POST",
+      body: formData,
+    });
+    return uploadedData.json();
+  }
+
+  const onSubmit = async (data) => {
+    const image1 = await imageUpload(data.image1[0]);
+    const image2 = await imageUpload(data.image2[0]);
+    const userData = {
+      title: data.title,
+      author: data.author,
+      publication: data.publication,
+      image1: image1.data.display_url,
+      image2: image2.data.display_url,
+      library: data.library,
+      category: data.category,
+      edition: data.editon,
+      district: data.district,
+      contact: data.contact,
+      region: data.region,
+      instruction: data.instruction,
+      createdAt: new Date(),
+      ownerEmail: user.email,
+    };
+
+    axiosSecure.post("/addBook", userData).then((data) => {
+      if (data.data.insertedId) {
+        toast.success("Book added sucessfully");
+        form.reset();
+      }
+    });
   };
 
   return (
@@ -18,7 +79,7 @@ const AddBook = () => {
           Add a Book
         </h2>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} id="form">
           <div className="py-10">
             <div className="w-full md:flex items-center justify-between gap-4">
               {/* LEFT SIDE */}
@@ -132,7 +193,7 @@ const AddBook = () => {
                     type="text"
                     className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="Library name..."
-                    {...register("Library", {
+                    {...register("library", {
                       required: "Library name is required",
                     })}
                   />
@@ -220,17 +281,17 @@ const AddBook = () => {
                     {...register("contact", {
                       required: "Contact number is required",
                       minLength: {
-                        value: 11,
-                        message: "Contact number must be 11 digits",
+                        value: 10,
+                        message: "Contact number must be 10 digits",
                       },
                       maxLength: {
-                        value: 11,
-                        message: "Contact number must be 11 digits",
+                        value: 10,
+                        message: "Contact number must be 10 digits",
                       },
                       pattern: {
-                        value: /^01[0-9]{9}$/,
+                        value: /^1[0-9]{9}$/,
                         message:
-                          "Contact number must start with 01 and be 11 digits",
+                          "Contact number must start with 1 and be 10 digits",
                       },
                     })}
                   />
@@ -244,24 +305,19 @@ const AddBook = () => {
                 {/* District */}
                 <div className="my-2">
                   <label className="block text-blue-400 text-sm md:text-lg font-medium mb-2 bodyFont">
-                    Receiver District
+                    Receiver Region
                   </label>
                   <select
-                    {...register("district")}
+                    {...register("region", { required: "required" })}
                     className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     defaultValue=""
                   >
                     <option value="" disabled>
                       Select region
                     </option>
-                    <option value="dhaka">Dhaka</option>
-                    <option value="mymensingh">Mymensingh</option>
-                    <option value="rajshahi">Rajshahi</option>
-                    <option value="khulna">Khulna</option>
-                    <option value="barishal">Barishal</option>
-                    <option value="sylhet">Sylhet</option>
-                    <option value="rangpur">Rangpur</option>
-                    <option value="chattogram">Chattogram</option>
+                    {regionWithOutDup.map((region) => (
+                      <option value={region}>{region}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="my-2">
@@ -276,14 +332,9 @@ const AddBook = () => {
                     <option value="" disabled>
                       Select District
                     </option>
-                    <option value="dhaka">Dhaka</option>
-                    <option value="mymensingh">Mymensingh</option>
-                    <option value="rajshahi">Rajshahi</option>
-                    <option value="khulna">Khulna</option>
-                    <option value="barishal">Barishal</option>
-                    <option value="sylhet">Sylhet</option>
-                    <option value="rangpur">Rangpur</option>
-                    <option value="chattogram">Chattogram</option>
+                    {Districts(updatedRegion).map((ele) => (
+                      <option value={ele.district}>{ele.district}</option>
+                    ))}
                   </select>
                 </div>
               </div>

@@ -50,6 +50,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/addBook",
         element: <AddBook />,
+        loader:()=>fetch("/warehouses.json")
       },
       {
         path: "/dashboard/myBooks",

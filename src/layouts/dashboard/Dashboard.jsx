@@ -13,6 +13,7 @@ import "./dashboard.css"
 const Dashboard = () => {
   const {user}=useAuthHook()
   const [clicked,setClicked]=useState(false)
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />

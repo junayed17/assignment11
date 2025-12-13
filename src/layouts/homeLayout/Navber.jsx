@@ -11,10 +11,8 @@ import useAxiosSecure from "../../customHook/useAxiosSecure";
 const Navber = () => {
   const { user, handleLogOut } = useAuthHook();
 
-  // console.log(user);
-  // if (!user) {
-  //   return <Loader/>
-  // }
+
+
 
   function handleSignOut() {
     handleLogOut().then(()=>{
