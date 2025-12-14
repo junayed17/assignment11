@@ -36,7 +36,7 @@ const Coverage = () => {
     <div>
       <div className="mb-10 mt-20 text-center">
         <h2
-          className="text-4xl font-bold text-blue-600 mb-3"
+          className="text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
           data-aos="fade-left"
         >
           Library Locations Across the City
@@ -47,7 +47,7 @@ const Coverage = () => {
           data-aos="fade-up"
         ></div>
 
-        <p className="text-blue-500 text-lg" data-aos="fade-right">
+        <p className="text-blue-500 text-lg bodyFont" data-aos="fade-right">
           Order your favorite books and enjoy fast, hassle-free delivery.
         </p>
         <div className="flex items-center justify-center mt-5">
