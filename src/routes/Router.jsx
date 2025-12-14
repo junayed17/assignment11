@@ -11,6 +11,7 @@ import Error404 from "../components/Error404";
 import Dashboard from "../layouts/dashboard/Dashboard";
 import AddBook from "../pages/dashboard/AddBook";
 import MyBooks from "../pages/dashboard/MyBooks";
+import BookDetails from "../pages/Books/BookDetails";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Books />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/book/details",
+        element: (
+          <PrivateRoute>
+            <BookDetails/>
           </PrivateRoute>
         ),
       },
@@ -50,7 +59,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/addBook",
         element: <AddBook />,
-        loader:()=>fetch("/warehouses.json")
+        loader: () => fetch("/warehouses.json"),
       },
       {
         path: "/dashboard/myBooks",

@@ -20,6 +20,10 @@ const Book = ({ bookSetails }) => {
           src={image2}
           className="absolute inset-0 w-full h-full object-cover"
         />
+        <img
+          src={image1}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       </figure>
 
       <div className="card-body">
@@ -56,6 +60,7 @@ const Book = ({ bookSetails }) => {
       <Link
         class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 mx-4"
         type="button"
+        to="/book/details"
       >
         <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
         <span class="absolute bottom-0 left-0 h-full -ml-2">
