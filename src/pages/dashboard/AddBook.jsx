@@ -62,6 +62,7 @@ const AddBook = () => {
       instruction: data.instruction,
       createdAt: new Date(),
       ownerEmail: user.email,
+      price:data.price
     };
 
     axiosSecure.post("/addBook", userData).then((data) => {

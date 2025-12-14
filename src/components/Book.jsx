@@ -1,43 +1,54 @@
 import React from 'react';
 import { FaFire, FaPenNib, FaTag } from 'react-icons/fa';
+import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import { Link } from 'react-router';
 
-const Book = () => {
+const Book = ({ bookSetails }) => {
+  const { image1, image2, author, title, price = 100, category } = bookSetails;
+  
   return (
-    <div className="card card-sm bg-base-200 w-full shadow transorm hover:scale-105 duration-300">
-      <figure className="hover-gallery max-h-96 object-cover">
-        <img src="https://img.daisyui.com/images/stock/daisyui-hat-1.webp"/>
-        <img src="https://img.daisyui.com/images/stock/daisyui-hat-2.webp" />
-        {/* <img src="https://img.daisyui.com/images/stock/daisyui-hat-3.webp" />
-        <img src="https://img.daisyui.com/images/stock/daisyui-hat-4.webp" /> */}
+    <div
+      className="card card-sm bg-base-200 w-full shadow transorm hover:scale-105 duration-300"
+      data-aos="fade-up"
+    >
+      <figure className="hover-gallery h-96 overflow-hidden relative">
+        <img
+          src={image1}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <img
+          src={image2}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       </figure>
+
       <div className="card-body">
         <h2 className="card-title flex items-start justify-between gap-2">
           <span className="text-2xl  font-semibold text-gray-800 heading line-clamp-2">
-            DaisyUI
+            {title}
           </span>
 
-          <span className="text-2xl font-bold text-blue-600 whitespace-nowrap heading">
-            $25
+          <span className="text-2xl font-bold text-blue-600 whitespace-nowrap heading flex items-center justify-center">
+            <FaBangladeshiTakaSign /> <span>{price}</span>
           </span>
         </h2>
-        <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center gap-2 justify-between mt-3">
           <kbd className="kbd transform hover:scale-105 duration-300">
-            <FaPenNib className="text-indigo-500 bodyFont text-lg" />
-            <span className="text-gray-700 bodyFont text-lg p-2 inline-block heading">
-              Jhumpa Lahiri
+            <FaPenNib className="text-indigo-500 bodyFont" />
+            <span className="text-gray-700 bodyFont text-sm sm:text-lg p-2 inline-block heading">
+              {author}
             </span>
           </kbd>
           <kbd className="kbd transform hover:scale-105 duration-300">
             <FaTag className="text-sky-500" />
-            <span className="text-gray-700 bodyFont text-lg p-2 inline-block heading">
-              Fiction
+            <span className="text-gray-700 bodyFont text-sm sm:text-lg p-2 inline-block heading">
+              {category}
             </span>
           </kbd>
           <kbd className="kbd transform hover:scale-105 duration-300">
             <FaFire className="text-orange-500" />
-            <span className="text-gray-700 bodyFont text-lg p-2 inline-block heading">
-              1.2k sold
+            <span className="text-gray-700 bodyFont text-sm sm:text-lg p-2 inline-block heading">
+              10k
             </span>
           </kbd>
         </div>
