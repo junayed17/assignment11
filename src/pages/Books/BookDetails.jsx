@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import Loader from "../../components/Loader";
 import useAuthHook from "../../customHook/useAuthHook";
+import toast from "react-hot-toast";
 
 const BookDetails = () => {
   const axiosSecure = useAxiosSecure();
@@ -35,8 +36,24 @@ const BookDetails = () => {
   if (!data) {
     return <Loader />;
   }
-console.log(user);
 
+  function handleWish() {
+    const wishData = {
+      bookId: data._id,
+      user: user.email,
+      title: data.title,
+      coverImage: data.image1,
+      author: data.author,
+      addedAt: new Date(),
+    };
+    axiosSecure
+      .post("/wishListBook", wishData)
+      .then((result) =>{ 
+        if (result.data.insertedId) {
+          toast.success("Added to wish list sucessfully");
+        }
+      });
+  }
   return (
     <div className="bg-gradient-to-br from-base-100 via-base-200 to-base-300 min-h-screen py-14 rounded-2xl my-10">
       <div className="max-w-7xl mx-auto px-4">
@@ -166,7 +183,7 @@ console.log(user);
               <button
                 className="
                 h-15
-    flex items-center justify-center gap-x-2
+        flex items-center justify-center gap-x-2
     border-2 border-red-300
     hover:border-error hover:bg-error/10
      px-4
@@ -178,6 +195,7 @@ console.log(user);
     leading-none
     mx-4
   "
+                onClick={handleWish}
               >
                 <FaHeart className="text-error text-lg transition-transform duration-300 group-hover:scale-110" />
                 <span>Wishlist</span>
