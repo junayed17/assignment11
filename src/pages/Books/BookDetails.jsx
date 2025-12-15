@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import img1 from "../../assets/0bfad7aa-9e1b-4802-b958-879cefd2efe1.jfif";
 import img2 from "../../assets/8841be02-d0ea-4f43-a1a5-c58a4d00d695.jfif";
 import {
@@ -9,10 +9,33 @@ import {
   FaUserEdit,
 } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
+import Loader from "../../components/Loader";
+import useAuthHook from "../../customHook/useAuthHook";
 
 const BookDetails = () => {
-  const [img, setImg] = useState(img1);
+  const axiosSecure = useAxiosSecure();
+  const { id } = useParams();
+  const { user } = useAuthHook();
+  const { data } = useQuery({
+    queryKey: ["book", id],
+    queryFn: async () => {
+      const result = await axiosSecure.get(`/books/${id}`);
+      return result.data;
+    },
+  });
+  const [img, setImg] = useState();
+  useEffect(() => {
+    if (data?.image1) {
+      setImg(data.image1);
+    }
+  }, [data]);
+  if (!data) {
+    return <Loader />;
+  }
+console.log(user);
 
   return (
     <div className="bg-gradient-to-br from-base-100 via-base-200 to-base-300 min-h-screen py-14 rounded-2xl my-10">
@@ -29,7 +52,7 @@ const BookDetails = () => {
             </div>
 
             <div className="flex gap-4 mt-6 justify-center">
-              {[img1, img2].map((image, i) => (
+              {[data.image1, data.image2].map((image, i) => (
                 <img
                   key={i}
                   src={image}
@@ -44,7 +67,7 @@ const BookDetails = () => {
               ))}
             </div>
 
-            <span className="absolute top-4 left-4 bg-primary text-primary-content px-4 py-1 rounded-full text-sm shadow">
+            <span className="absolute top-4 left-4 bg-primary text-primary-content px-4 py-1 rounded-full text-sm shadow heading">
               New Arrival
             </span>
           </div>
@@ -52,7 +75,7 @@ const BookDetails = () => {
           {/* DETAILS */}
           <div className="space-y-6 text-base-content">
             <h1 className="text-4xl font-extrabold leading-tight heading">
-              The Silent River
+              {data.title}
             </h1>
 
             {/* Rating */}
@@ -70,17 +93,18 @@ const BookDetails = () => {
             {/* Meta */}
             <div className="flex flex-wrap gap-4 text-sm">
               <span className="flex items-center gap-2 bg-primary/10 text-primary px-4 py-1 rounded-full text-sm sm:text-lg  bodyFont">
-                <FaBookOpen /> Novel
+                <FaBookOpen /> {data.category}
               </span>
               <span className="flex items-center gap-2 text-base-content/80 text-sm sm:text-lg bodyFont">
-                <FaUserEdit /> Jhumpa Lahiri
+                <FaUserEdit /> {data.author}
               </span>
             </div>
 
             {/* Price */}
             <div className="flex items-center gap-3">
               <span className="text-3xl font-bold text-primary flex items-center justify-center heading">
-                <FaBangladeshiTakaSign />4<span>50</span>
+                <FaBangladeshiTakaSign />
+                <span>{data.price}</span>
               </span>
               <span className="text-sm md:text-lg bodyFont bg-error/10 text-error px-3 py-1 rounded-full">
                 25% OFF
@@ -89,15 +113,13 @@ const BookDetails = () => {
 
             {/* Description */}
             <p className="leading-relaxed text-sm md:text-lg bodyFont text-base-content/80">
-              A beautifully crafted novel that dives deep into human emotions,
-              relationships, and resilience. A must-read for lovers of
-              meaningful storytelling.
+              {data.instruction}
             </p>
 
             {/* Contact */}
             <div className="flex items-center gap-3 text-success font-semibold">
               <FaWhatsapp className="text-2xl" />
-              <span className="text-sm sm:text-lg">01954-839800</span>
+              <span className="text-sm sm:text-lg">0{data.contact}</span>
             </div>
 
             {/* CTA */}

@@ -4,7 +4,8 @@ import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import { Link } from 'react-router';
 
 const Book = ({ bookSetails }) => {
-  const { image1, image2, author, title, price = 100, category } = bookSetails;
+  const { image1, image2, author, title, price = 100, category ,_id} = bookSetails;
+
   
   return (
     <div
@@ -60,7 +61,7 @@ const Book = ({ bookSetails }) => {
       <Link
         class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 mx-4"
         type="button"
-        to="/book/details"
+        to={`/book/details/${_id}`}
       >
         <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
         <span class="absolute bottom-0 left-0 h-full -ml-2">
