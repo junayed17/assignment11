@@ -13,6 +13,7 @@ import AddBook from "../pages/dashboard/AddBook";
 import MyBooks from "../pages/dashboard/MyBooks";
 import BookDetails from "../pages/Books/BookDetails";
 import MyOrders from "../pages/dashboard/MyOrders";
+import OrdersOnMyBook from "../pages/dashboard/OrdersOnMyBook";
 
 const router = createBrowserRouter([
   {
@@ -72,7 +73,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/orders",
-        element: <MyOrders/>,
+        element: <MyOrders />,
+      },
+      {
+        path: "/dashboard/ordersonmybook",
+        element:<OrdersOnMyBook/>,
       },
     ],
   },

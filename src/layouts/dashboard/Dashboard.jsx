@@ -9,7 +9,7 @@ import { NavLink, Outlet } from 'react-router';
 import { MdLibraryAdd, MdLibraryBooks } from 'react-icons/md';
 import { FaUserLarge } from 'react-icons/fa6';
 import "./dashboard.css"
-import { FaClipboardList } from 'react-icons/fa';
+import { FaClipboardList, FaShoppingCart } from 'react-icons/fa';
 
 const Dashboard = () => {
   const {user}=useAuthHook()
@@ -38,8 +38,10 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center justify-center">
             {user ? (
-              <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300 tooltip tooltip-bottom"
-              data-tip={`${user.displayName}`}>
+              <div
+                className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300 tooltip tooltip-bottom"
+                data-tip={`${user.displayName}`}
+              >
                 <img
                   className="h-full w-full rounded-full object-cover"
                   src={user.photoURL}
@@ -108,7 +110,6 @@ const Dashboard = () => {
                 </span>
               </NavLink>
             </li>
-            
 
             {/* List item */}
             <li>
@@ -123,6 +124,24 @@ const Dashboard = () => {
                   className="w-full  text-4xl font-bold"
                 >
                   <FaClipboardList />
+                </label>
+                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                  My books
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/dashboard/ordersonmybook"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Orders on my Book"
+              >
+                <label
+                  htmlFor="my-drawer-4"
+                  aria-label="open sidebar"
+                  className="w-full  text-4xl font-bold"
+                >
+                  <FaShoppingCart/>
                 </label>
                 <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
                   My books

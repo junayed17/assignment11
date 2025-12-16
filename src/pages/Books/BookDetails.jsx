@@ -69,7 +69,7 @@ const BookDetails = () => {
     UserData.sellerEmail = data.ownerEmail;
     UserData.bookId = data._id;
     UserData.orderAt = new Date();
-    UserData.status = "pending";
+    UserData.status = "Pending";
     UserData.payment = "unpaid";
     UserData.title = data.title;
       axiosSecure

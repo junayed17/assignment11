@@ -1,40 +1,56 @@
-import React from 'react';
-import useAxiosSecure from '../../customHook/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
-import useAuthHook from '../../customHook/useAuthHook';
-import Loader from '../../components/Loader';
-import dayjs from 'dayjs';
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import useAuthHook from "../../customHook/useAuthHook";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
+import Loader from "../../components/Loader";
+import dayjs from "dayjs";
+import toast from "react-hot-toast";
 
-const MyOrders = () => {
+const OrdersOnMyBook = () => {
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuthHook();
+  const STATUS_OPTIONS = ["Pending", "Shipped", "Delivered"];
 
-const axiosSecure=useAxiosSecure();
-const {user}=useAuthHook();
+  const {
+    data = [],
+    error,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["orders", user?.email],
+    queryFn: async () => {
+      const result = await axiosSecure.get(`/myOrders?lEmail=${user.email}`);
+      return result.data;
+    },
+  });
 
-const {data=[],error,isLoading}=useQuery({
-  queryKey:["myOrders",user?.email],
-  queryFn:async ()=>{
-    const result =await axiosSecure.get(`/myOrders?uEmail=${user.email}`);
-    return result.data;
+  async function handleStatusChange(id, status) {
+      console.log(id,status);
+    await axiosSecure
+      .patch(`/order/updateStatus?id=${id}`, { updatedStatus: status })
+      .then((result) =>{
+        console.log(result.data);
+        
+        if (result.data.modifiedCount) {
+          toast.success(`status transform to ${status} sucessfully`);
+        }
+      });
+    refetch();
   }
-})
 
-
-if (isLoading) {
-  return <Loader/>
-}
-
-console.log(data, error, isLoading);
-
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700">
       <div className="my-8">
         <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
-          My Orders
+          Orders on My Books
         </h2>
         <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-base-600 dark:text-base-300">
-          View your orders, check delivery status, and complete payments from
-          here.
+          See all customer orders for your books, track order status, and manage
+          actions easily.
         </p>
       </div>
       <table className="table w-full text-sm">
@@ -63,13 +79,31 @@ console.log(data, error, isLoading);
               <td>{dayjs(book.orderAt).format("DD MMM YYYY, hh:mm A")}</td>
 
               <td>
-                <span
-                  className="px-3 py-1 rounded-full text-xs font-semibold 
-            bg-green-100 text-green-600 
-            dark:bg-green-900 dark:text-green-300"
+                <select
+                  value={book.status}
+                  onChange={(e) =>
+                    handleStatusChange(book.bookId, e.target.value)
+                  }
+                  className={`px-3 py-1 rounded-full text-xs font-semibold cursor-pointer
+      border outline-none
+      ${
+        book.status === "Pending"
+          ? "bg-yellow-100 text-yellow-600"
+          : book.status === "Shipped"
+          ? "bg-purple-100 text-purple-600"
+          : book.status === "Delivered"
+          ? "bg-green-100 text-green-600"
+          : "bg-red-100 text-red-600"
+      }
+      dark:bg-opacity-20
+    `}
                 >
-                  {book.status}
-                </span>
+                  {STATUS_OPTIONS.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
               </td>
 
               <td className="text-center flex items-center justify-center gap-2">
@@ -108,7 +142,7 @@ console.log(data, error, isLoading);
                   </span>
                   <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                   <span class="relative text-sm  font-bold heading">
-                    Pay Now
+                    Approve
                   </span>
                 </button>
                 <button
@@ -158,4 +192,4 @@ console.log(data, error, isLoading);
   );
 };
 
-export default MyOrders;
+export default OrdersOnMyBook;
