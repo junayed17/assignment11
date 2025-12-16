@@ -12,6 +12,7 @@ import Dashboard from "../layouts/dashboard/Dashboard";
 import AddBook from "../pages/dashboard/AddBook";
 import MyBooks from "../pages/dashboard/MyBooks";
 import BookDetails from "../pages/Books/BookDetails";
+import MyOrders from "../pages/dashboard/MyOrders";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
         path: "/book/details/:id",
         element: (
           <PrivateRoute>
-            <BookDetails/>
+            <BookDetails />
           </PrivateRoute>
         ),
       },
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/myProfile",
         element: <Profile />,
+      },
+      {
+        path: "/dashboard/orders",
+        element: <MyOrders/>,
       },
     ],
   },

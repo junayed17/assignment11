@@ -9,6 +9,7 @@ import { NavLink, Outlet } from 'react-router';
 import { MdLibraryAdd, MdLibraryBooks } from 'react-icons/md';
 import { FaUserLarge } from 'react-icons/fa6';
 import "./dashboard.css"
+import { FaClipboardList } from 'react-icons/fa';
 
 const Dashboard = () => {
   const {user}=useAuthHook()
@@ -37,7 +38,8 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center justify-center">
             {user ? (
-              <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300">
+              <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300 tooltip tooltip-bottom"
+              data-tip={`${user.displayName}`}>
                 <img
                   className="h-full w-full rounded-full object-cover"
                   src={user.photoURL}
@@ -106,20 +108,21 @@ const Dashboard = () => {
                 </span>
               </NavLink>
             </li>
+            
 
             {/* List item */}
             <li>
               <NavLink
-                to="/dashboard/myBooks"
+                to="/dashboard/orders"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My books"
+                data-tip="My Orders"
               >
                 <label
                   htmlFor="my-drawer-4"
                   aria-label="open sidebar"
                   className="w-full  text-4xl font-bold"
                 >
-                  <MdLibraryBooks />
+                  <FaClipboardList />
                 </label>
                 <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
                   My books
@@ -139,7 +142,9 @@ const Dashboard = () => {
                 >
                   <FaUserLarge />
                 </label>
-                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">My Profile</span>
+                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                  My Profile
+                </span>
               </NavLink>
             </li>
           </ul>

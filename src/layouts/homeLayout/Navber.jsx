@@ -97,7 +97,10 @@ const Navber = () => {
 
         <div className="navbar-end">
           {user ? (
-            <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300">
+            <div
+              className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300 tooltip tooltip-bottom"
+              data-tip={`${user.displayName}`}
+            >
               <img
                 className="h-full w-full rounded-full object-cover"
                 src={user.photoURL}
