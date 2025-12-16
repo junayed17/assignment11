@@ -71,26 +71,26 @@ const BookDetails = () => {
     UserData.orderAt = new Date();
     UserData.status = "pending";
     UserData.payment = "unpaid";
-
-    axiosSecure
-      .post("/orders", UserData)
-      .then((result) => {
-        if (result.data.insertedId) {
-          modalRef.current.close();
+    UserData.title = data.title;
+      axiosSecure
+        .post("/orders", UserData)
+        .then((result) => {
+          if (result.data.insertedId) {
+            modalRef.current.close();
+            Swal.fire({
+              title: "order sucessfully done",
+              icon: "success",
+              draggable: true,
+            });
+          }
+        })
+        .catch((err) => {
           Swal.fire({
-            title: "order sucessfully done",
-            icon: "success",
+            title: "Somthing Error!",
+            icon: "error",
             draggable: true,
           });
-        }
-      })
-      .catch((err) => {
-        Swal.fire({
-          title: "Somthing Error!",
-          icon: "error",
-          draggable: true,
         });
-      });
   }
 
   function handleCancel() {
