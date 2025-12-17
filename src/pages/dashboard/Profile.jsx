@@ -1,13 +1,16 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAuthHook from "../../customHook/useAuthHook";
 import { FaCheck, FaCross, FaThinkPeaks } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import { MdCancel } from "react-icons/md";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
 
 const Profile = () => {
   const modalRef = useRef();
   const { user, handleUpdateProfile, setLoading } = useAuthHook();
+  const axiosSecure=useAxiosSecure()
+  const [role,setRole]=useState("User")
   const {
     register,
     handleSubmit,
@@ -54,7 +57,7 @@ const Profile = () => {
             });
         });
       return;
-    }
+      }
 
     handleUpdateProfile(userData)
       .then(() => {
@@ -82,6 +85,27 @@ const Profile = () => {
       draggable: true,
     });
   }
+
+useEffect(() => {
+  const fetchUserData = async () => {
+    try {
+      const { data } = await axiosSecure.get(`/user?email=${user.email}`);
+      setRole(data.role);
+      console.log(data);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (user?.email) {
+    fetchUserData();
+  }
+}, [user?.email]);
+
+console.log(role);
+
+
 
   return (
     <div class=" cursor-pointer transform transition-all duration-500 hover:scale-105  max-w-[500px] mx-auto  my-10 ">
@@ -114,7 +138,7 @@ const Profile = () => {
                 {user.email}
               </p>
               <div class="text-white text-sm leading-relaxed border-black transform group-hover:scale-105 transition-colors duration-300 bg-blue border-[1px] rounded-2xl bg-blue-400 w-[5rem] flex items-center justify-center px-2">
-                <p>User</p>
+                <p>{role}</p>
                 <FaCheck className="text-black text-sm" />
               </div>
             </div>

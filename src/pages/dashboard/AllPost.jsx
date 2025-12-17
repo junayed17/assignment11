@@ -64,8 +64,9 @@ const AllPost = () => {
           View and manage all books posted by librarians
         </p>
         <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-blue-600  font-bold">
-         total {data.length} posts 
+          total {data.length} posts
         </p>
+      
       </div>
       <table className="table w-full text-sm">
         {/* head */}
