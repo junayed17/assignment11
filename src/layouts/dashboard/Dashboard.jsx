@@ -9,7 +9,7 @@ import { NavLink, Outlet } from 'react-router';
 import { MdLibraryAdd, MdLibraryBooks } from 'react-icons/md';
 import { FaUserLarge } from 'react-icons/fa6';
 import "./dashboard.css"
-import { FaClipboardList, FaShoppingCart } from 'react-icons/fa';
+import { FaClipboardList, FaShoppingCart, FaUsers } from 'react-icons/fa';
 
 const Dashboard = () => {
   const {user}=useAuthHook()
@@ -159,6 +159,23 @@ const Dashboard = () => {
                   className="w-full  text-4xl font-bold"
                 >
                   <MdLibraryBooks/>
+                </label>
+                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                  All Post
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/dashboard/allUsers"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="All Users">
+                <label
+                  htmlFor="my-drawer-4"
+                  aria-label="open sidebar"
+                  className="w-full  text-4xl font-bold"
+                >
+                  <FaUsers/>
                 </label>
                 <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
                   All Post

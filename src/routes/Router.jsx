@@ -15,6 +15,7 @@ import BookDetails from "../pages/Books/BookDetails";
 import MyOrders from "../pages/dashboard/MyOrders";
 import OrdersOnMyBook from "../pages/dashboard/OrdersOnMyBook";
 import AllPost from "../pages/dashboard/AllPost";
+import AllUser from "../pages/dashboard/AllUser";
 
 const router = createBrowserRouter([
   {
@@ -82,7 +83,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/allPost",
-        element: <AllPost/>,
+        element: <AllPost />,
+      },
+      {
+        path: "/dashboard/allUsers",
+        element: <AllUser/>,
       },
     ],
   },
