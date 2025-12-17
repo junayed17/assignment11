@@ -23,17 +23,21 @@ const AllUser = () => {
     },
   });
 
-  async function handleUpdateDelete(status, id) {
+  async function handleAdminLibrarian(role, id) {
+  console.log(role,id);
+  
     try {
-      const result = await axiosSecure.patch(`/post/${id}`, {
-        isApprove: status,
+      const result = await axiosSecure.patch(`/users/${id}`, {
+        role,
       });
+      console.log(result);
+      
 
       if (result.data.modifiedCount > 0) {
-        toast.success(`Post ${status}`);
+        toast.success(`role updated sucessfully`);
         refetch();
       } else {
-        toast.error(`Post is already ${status}`);
+        toast.error(`role is already ${role}`);
       }
     } catch (error) {
       toast.error("Something went wrong!");
@@ -41,21 +45,12 @@ const AllUser = () => {
     }
   }
 
-  async function handleDeleteBook(id) {
-    await axiosSecure.delete(`/book/${id}`).then((result) => {
-      if (result.data.deletedCount) {
-        toast.success("book Delete sucessfully");
-      }
-    });
-    refetch();
-  }
+
 
   if (isLoading) {
     return <Loader />;
   }
 
-  console.log(data);
-  
   return (
     <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700 ">
       <div className="my-8">
@@ -82,14 +77,14 @@ const AllUser = () => {
 
         {/* body */}
         <tbody className="bg-base-200 text-base-700 dark:text-base-200 text-sm sm:text-lg bodyFont">
-          {data.map((book, index) => (
+          {data.map((user, index) => (
             <tr
               className="hover:bg-base-50  hover:bg-blue-100 duration-300 py-0"
-              key={book._id}
+              key={user._id}
             >
               <th>{index + 1}</th>
 
-              <td className="font-medium">{book.displayName}</td>
+              <td className="font-medium">{user.displayName}</td>
 
               <td>
                 <span
@@ -97,16 +92,16 @@ const AllUser = () => {
             bg-green-100 text-green-600 
             dark:bg-green-900 dark:text-green-300"
                 >
-                  {book.role}
+                  {user.role}
                 </span>
               </td>
 
               <td className="text-center flex items-center justify-center gap-2">
                 <button
-                  disabled={book?.isApprove == "Accepted"}
+                  disabled={user?.isApprove == "Accepted"}
                   class={`relative inline-flex items-center justify-center min-w-32 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
                   type="button"
-                  onClick={() => handleUpdateDelete("Accepted", book._id)}
+                  onClick={() => handleAdminLibrarian("Admin", user._id)}
                 >
                   {}
 
@@ -141,14 +136,14 @@ const AllUser = () => {
                   </span>
                   <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                   <span class="relative text-sm  font-bold heading">
-                    Make Librarian
+                    Make Admin
                   </span>
                 </button>
                 <button
-                  disabled={book?.isApprove == "Accepted"}
+                  disabled={user?.isApprove == "Accepted"}
                   class={`relative inline-flex items-center justify-center w-32 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
                   type="button"
-                  onClick={() => handleDeleteBook(book._id)}
+                  onClick={() => handleAdminLibrarian("Librarian", user._id)}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">
@@ -181,7 +176,7 @@ const AllUser = () => {
                   </span>
                   <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                   <span class="relative text-sm  font-bold heading">
-                    Make Admin
+                    Make Librarian
                   </span>
                 </button>
               </td>
