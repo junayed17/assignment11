@@ -55,12 +55,12 @@ export default function Slider() {
         pagination={{
           clickable: true,
         }}
-        autoplay={{
-          delay: 3000,
-          pauseOnMouseEnter: true,
-          disableOnInteraction: false,
-        }}
-        loop={true}
+        // autoplay={{
+        //   delay: 3000,
+        //   pauseOnMouseEnter: true,
+        //   disableOnInteraction: false,
+        // }}
+        // loop={true}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper max-h-[85vh]"
       >
@@ -71,17 +71,17 @@ export default function Slider() {
                 <img src={ele.imgUrl} className="w-full" />
                 <div
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-                    text-white text-center z-10 max-w-xl px-8 ml-10 backdrop-blur-sm bg-black/40  rounded-xl py-6
+                    text-white text-center z-10  px-4 md:px-8  backdrop-blur-sm bg-black/40  rounded-xl py-6
                   dark:bg-white/20 dark:text-white
                   duration-300
                   transform hover:scale-105"
                 >
-                  <h2 className="text-4xl font-bold mb-4 leading-tight headings">
+                  <h2 className=" text-2xl md:text-3xl md:text-4xl font-bold mb-4 leading-tight headings">
                     {ele.title}
                   </h2>
 
                   <p
-                    className="text-lg opacity-90 mb-6 font-body"
+                    className="text-sm md:text-lg opacity-90 font-body"
                   >
                     {ele.subTitle}
                   </p>

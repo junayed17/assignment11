@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "./slider/Slider";
 import Coverage from "./Coverage";
 import LatestBooks from "./LatestBooks";
+import WhyChooseUs from "./WhyChooseUs";
 
 const HomePage = () => {
   return (
@@ -9,6 +10,7 @@ const HomePage = () => {
       <Slider />
       <Coverage/>
       <LatestBooks/>
+      <WhyChooseUs/>
     </div>
   );
 };
