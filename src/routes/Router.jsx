@@ -16,6 +16,7 @@ import MyOrders from "../pages/dashboard/MyOrders";
 import OrdersOnMyBook from "../pages/dashboard/OrdersOnMyBook";
 import AllPost from "../pages/dashboard/AllPost";
 import AllUser from "../pages/dashboard/AllUser";
+import Forbidden from "../components/Forbidden";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <Error404 />,
+  },
+  {
+    path: "/forbidden",
+    element: <Forbidden/>,
   },
 ]);
 
