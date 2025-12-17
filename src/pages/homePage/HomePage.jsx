@@ -4,6 +4,7 @@ import Coverage from "./Coverage";
 import LatestBooks from "./LatestBooks";
 import WhyChooseUs from "./WhyChooseUs";
 import HowItWork from "./HowItWorks";
+import Overview from "./Overview";
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
       <Slider />
       <LatestBooks />
       <Coverage />
+      <Overview/>
       <WhyChooseUs/>
       <HowItWork />
     </div>
