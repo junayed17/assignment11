@@ -53,7 +53,7 @@ const AddBook = () => {
       publication: data.publication,
       image1: image1.data.display_url,
       image2: image2.data.display_url,
-      library: data.library,
+      bookStatus: data.bookStatus,
       category: data.category,
       edition: data.editon,
       district: data.district,
@@ -62,7 +62,8 @@ const AddBook = () => {
       instruction: data.instruction,
       createdAt: new Date(),
       ownerEmail: user.email,
-      price:data.price
+      price: data.price,
+      isApprove:"Pending"
     };
 
     axiosSecure.post("/addBook", userData).then((data) => {
@@ -187,22 +188,24 @@ const AddBook = () => {
                   )}
                 </div>
                 <div className="my-2">
-                  <label className="block text-blue-400 text-sm md:text-lg font-medium mb-2 bodyFont">
-                    Library Name
+                  <label
+                    className="block text-blue-400 text-sm md:text-lg font-medium mb-2 bodyFont"
+                    for="bookStatus"
+                  >
+                    Book Status
                   </label>
-                  <input
-                    type="text"
+                  <select
+                    {...register("bookStatus")}
                     className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
-                    placeholder="Library name..."
-                    {...register("library", {
-                      required: "Library name is required",
-                    })}
-                  />
-                  {errors.Library && (
-                    <p className="text-red-500 text-sm">
-                      {errors.Library.message}
-                    </p>
-                  )}
+                    defaultValue=""
+                    id="bookStatus"
+                  >
+                    <option value="" disabled>
+                      Select Status
+                    </option>
+                    <option value="Published">Published</option>
+                    <option value="Unpublished">Unpublished</option>
+                  </select>
                 </div>
               </div>
 

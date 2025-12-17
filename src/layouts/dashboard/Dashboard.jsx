@@ -141,10 +141,27 @@ const Dashboard = () => {
                   aria-label="open sidebar"
                   className="w-full  text-4xl font-bold"
                 >
-                  <FaShoppingCart/>
+                  <FaShoppingCart />
                 </label>
                 <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
-                  My books
+                  Order on my books
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/dashboard/allPost"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="All Post">
+                <label
+                  htmlFor="my-drawer-4"
+                  aria-label="open sidebar"
+                  className="w-full  text-4xl font-bold"
+                >
+                  <MdLibraryBooks/>
+                </label>
+                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                  All Post
                 </span>
               </NavLink>
             </li>

@@ -14,6 +14,7 @@ import MyBooks from "../pages/dashboard/MyBooks";
 import BookDetails from "../pages/Books/BookDetails";
 import MyOrders from "../pages/dashboard/MyOrders";
 import OrdersOnMyBook from "../pages/dashboard/OrdersOnMyBook";
+import AllPost from "../pages/dashboard/AllPost";
 
 const router = createBrowserRouter([
   {
@@ -77,7 +78,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/ordersonmybook",
-        element:<OrdersOnMyBook/>,
+        element: <OrdersOnMyBook />,
+      },
+      {
+        path: "/dashboard/allPost",
+        element: <AllPost/>,
       },
     ],
   },
