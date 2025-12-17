@@ -1,39 +1,70 @@
-import React from 'react';
-import useAxiosSecure from '../../customHook/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
-import useAuthHook from '../../customHook/useAuthHook';
-import Loader from '../../components/Loader';
-import dayjs from 'dayjs';
+import React, { useEffect } from "react";
+import useAxiosSecure from "../../customHook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import useAuthHook from "../../customHook/useAuthHook";
+import Loader from "../../components/Loader";
+import dayjs from "dayjs";
+import toast from "react-hot-toast";
 
 const AllPost = () => {
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuthHook();
 
-const axiosSecure=useAxiosSecure();
-const {user}=useAuthHook();
+  const {
+    data = [],
+    error,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["AllPost", user?.email],
+    queryFn: async () => {
+      const result = await axiosSecure.get(`/allPost`);
+      return result.data;
+    },
+  });
 
-const {data=[],error,isLoading}=useQuery({
-  queryKey:["AllPost",user?.email],
-  queryFn:async ()=>{
-    const result = await axiosSecure.get(`/allPost`);
-    return result.data;
+  async function handleUpdateDelete(status, id) {
+    try {
+      const result = await axiosSecure.patch(`/post/${id}`, {
+        isApprove: status,
+      });
+
+      if (result.data.modifiedCount > 0) {
+        toast.success(`Post ${status}`);
+        refetch();
+      } else {
+        toast.error(`Post is already ${status}`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.error(error);
+    }
   }
-})
 
+  async function handleDeleteBook(id) {
+    await axiosSecure.delete(`/book/${id}`).then((result) => {
+      if (result.data.deletedCount) {
+        toast.success("book Delete sucessfully");
+      }
+    });
+    refetch();
+  }
 
-if (isLoading) {
-  return <Loader/>
-}
-
-console.log(data, error, isLoading);
-
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
-    <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700">
+    <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700 ">
       <div className="my-8">
         <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
           All Book Posts
         </h2>
         <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-base-600 dark:text-base-300">
           View and manage all books posted by librarians
+        </p>
+        <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-blue-600  font-bold">
+         total {data.length} posts 
         </p>
       </div>
       <table className="table w-full text-sm">
@@ -44,6 +75,7 @@ console.log(data, error, isLoading);
             <th>Title</th>
             <th>Order Date</th>
             <th>Author</th>
+            <th>Publish status</th>
             <th>Status</th>
             <th className="text-center">Action</th>
           </tr>
@@ -62,6 +94,7 @@ console.log(data, error, isLoading);
 
               <td>{dayjs(book.orderAt).format("DD MMM YYYY, hh:mm A")}</td>
               <td className="font-medium">{book.author}</td>
+              <td className="font-medium">{book.bookStatus}</td>
               <td>
                 <span
                   className="px-3 py-1 rounded-full text-xs font-semibold 
@@ -74,9 +107,13 @@ console.log(data, error, isLoading);
 
               <td className="text-center flex items-center justify-center gap-2">
                 <button
-                  class="relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
-                  type="submit"
+                  disabled={book?.isApprove == "Accepted"}
+                  class={`relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  type="button"
+                  onClick={() => handleUpdateDelete("Accepted", book._id)}
                 >
+                  {}
+
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">
                     <svg
@@ -112,8 +149,10 @@ console.log(data, error, isLoading);
                   </span>
                 </button>
                 <button
-                  class="relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
-                  type="submit"
+                  disabled={book?.isApprove == "Accepted"}
+                  class={`relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  type="button"
+                  onClick={() => handleDeleteBook(book._id)}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">
