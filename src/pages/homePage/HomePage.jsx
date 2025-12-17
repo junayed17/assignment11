@@ -3,14 +3,16 @@ import Slider from "./slider/Slider";
 import Coverage from "./Coverage";
 import LatestBooks from "./LatestBooks";
 import WhyChooseUs from "./WhyChooseUs";
+import HowItWork from "./HowItWorks";
 
 const HomePage = () => {
   return (
-    <div >
+    <div>
       <Slider />
-      <Coverage/>
-      <LatestBooks/>
+      <LatestBooks />
+      <Coverage />
       <WhyChooseUs/>
+      <HowItWork />
     </div>
   );
 };

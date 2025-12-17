@@ -4,10 +4,10 @@ const WhyChooseUs = () => {
   return (
     <section className="py-16 my-8 bg-base-300 rounded-2xl shadow">
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <div className="max-w-[500px] mx-auto text-center my-4">
+        <div className=" text-center my-4">
           <h2
             className=" text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
-            data-aos="fade-left"
+            data-aos="fade-up"
           >
             Why You Us
           </h2>
@@ -17,7 +17,7 @@ const WhyChooseUs = () => {
             data-aos="fade-up"
           ></div>
 
-          <p className="text-blue-500 text-lg bodyFont" data-aos="fade-right">
+          <p className="text-blue-500 text-lg bodyFont" data-aos="fade-up">
             We make book shopping easy and enjoyable
           </p>
         </div>

@@ -22,10 +22,10 @@ const LatestBooks = () => {
 
   return (
     <div className="my-10 text-center">
-      <div className="max-w-[500px] mx-auto text-center">
+      <div className="text-center">
         <h2
           className=" text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
-          data-aos="fade-left"
+          data-aos="fade-up"
         >
           Latest Books Just for You
         </h2>
@@ -35,7 +35,7 @@ const LatestBooks = () => {
           data-aos="fade-up"
         ></div>
 
-        <p className="text-blue-500 text-lg bodyFont" data-aos="fade-right">
+        <p className="text-blue-500 text-lg bodyFont" data-aos="fade-up">
           Freshly added books — explore the newest titles and read what’s
           trending now.
         </p>

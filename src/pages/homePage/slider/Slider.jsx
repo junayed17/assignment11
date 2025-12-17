@@ -55,43 +55,43 @@ export default function Slider() {
         pagination={{
           clickable: true,
         }}
-        // autoplay={{
-        //   delay: 3000,
-        //   pauseOnMouseEnter: true,
-        //   disableOnInteraction: false,
-        // }}
-        // loop={true}
+        autoplay={{
+          delay: 3000,
+          pauseOnMouseEnter: true,
+          disableOnInteraction: false,
+        }}
+        loop={true}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper max-h-[85vh]"
       >
         {img.map((ele) => {
           return (
             <SwiperSlide>
-              <div className="relative max-h-[85vh] w-full rounded-2xl overflow-hidden">
+              <div className="relative max-h-[90vh] w-full rounded-2xl overflow-hidden">
                 <img src={ele.imgUrl} className="w-full" />
                 <div
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
                     text-white text-center z-10  px-4 md:px-8  backdrop-blur-sm bg-black/40  rounded-xl py-6
                   dark:bg-white/20 dark:text-white
                   duration-300
-                  transform hover:scale-105"
+                  transform hover:scale-105
+                  w-[80%] mx-auto sm:w-auto
+                  "
                 >
-                  <h2 className=" text-2xl md:text-3xl md:text-4xl font-bold mb-4 leading-tight headings">
+                  <h2 className=" text-[1.25rem] sm:text-2xl md:text-3xl md:text-4xl font-bold mb-4 leading-tight headings">
                     {ele.title}
                   </h2>
 
-                  <p
-                    className="text-sm md:text-lg opacity-90 font-body"
-                  >
+                  <p className="text-sm md:text-lg opacity-90 font-body">
                     {ele.subTitle}
                   </p>
 
                   <Link
                     to={ele.path}
-                    class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group"
+                    className="relative hidden sm:inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group"
                   >
-                    <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
-                    <span class="absolute bottom-0 left-0 h-full -ml-2">
+                    <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
+                    <span className="absolute bottom-0 left-0 h-full -ml-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="w-auto h-full opacity-100 object-stretch"
@@ -105,7 +105,7 @@ export default function Slider() {
                         ></path>
                       </svg>
                     </span>
-                    <span class="absolute top-0 right-0 w-12 h-full -mr-3">
+                    <span className="absolute top-0 right-0 w-12 h-full -mr-3">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="object-cover w-full h-full"
@@ -119,7 +119,7 @@ export default function Slider() {
                         ></path>
                       </svg>
                     </span>
-                    <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
+                    <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                     <span class="relative text-base font-semibold">
                       {ele.cta}
                     </span>
