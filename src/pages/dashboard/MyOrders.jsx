@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAuthHook from '../../customHook/useAuthHook';
 import Loader from '../../components/Loader';
 import dayjs from 'dayjs';
+import { Link } from 'react-router';
 
 const MyOrders = () => {
 
@@ -73,9 +74,9 @@ console.log(data, error, isLoading);
               </td>
 
               <td className="text-center flex items-center justify-center gap-2">
-                <button
+                <Link
                   class="relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
-                  type="submit"
+                  to={`/dashboard/payment/${book.bookId}`}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">
@@ -110,7 +111,7 @@ console.log(data, error, isLoading);
                   <span class="relative text-sm  font-bold heading">
                     Pay Now
                   </span>
-                </button>
+                </Link>
                 <button
                   class="relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
                   type="submit"

@@ -72,6 +72,7 @@ const BookDetails = () => {
     UserData.status = "Pending";
     UserData.payment = "unpaid";
     UserData.title = data.title;
+    UserData.price = data.price;
       axiosSecure
         .post("/orders", UserData)
         .then((result) => {

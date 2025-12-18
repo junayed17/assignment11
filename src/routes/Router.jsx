@@ -17,6 +17,9 @@ import OrdersOnMyBook from "../pages/dashboard/OrdersOnMyBook";
 import AllPost from "../pages/dashboard/AllPost";
 import AllUser from "../pages/dashboard/AllUser";
 import Forbidden from "../components/Forbidden";
+import Payment from "../pages/dashboard/Payment";
+import PaymentCancel from "../pages/dashboard/PaymentCancel";
+import PaymentSucess from "../pages/dashboard/PaymentSucess";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +82,18 @@ const router = createBrowserRouter([
         element: <MyOrders />,
       },
       {
+        path: "/dashboard/payment/:id",
+        element: <Payment />,
+      },
+      {
+        path: "/dashboard/payment-success",
+        element: <PaymentSucess />,
+      },
+      {
+        path: "/dashboard/payment-cancelled",
+        element: <PaymentCancel/>,
+      },
+      {
         path: "/dashboard/ordersonmybook",
         element: <OrdersOnMyBook />,
       },
@@ -88,7 +103,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/allUsers",
-        element: <AllUser/>,
+        element: <AllUser />,
       },
     ],
   },
@@ -98,7 +113,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/forbidden",
-    element: <Forbidden/>,
+    element: <Forbidden />,
   },
 ]);
 
