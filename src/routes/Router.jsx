@@ -117,7 +117,7 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllUser />
-          </AdminRoute>
+           </AdminRoute>
         ),
       },
     ],

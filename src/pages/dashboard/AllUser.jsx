@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuthHook from "../../customHook/useAuthHook";
 import Loader from "../../components/Loader";
-import dayjs from "dayjs";
 import toast from "react-hot-toast";
 
 const AllUser = () => {
@@ -22,10 +21,10 @@ const AllUser = () => {
       return result.data;
     },
   });
+  console.log(data,isLoading,error);
+  
 
   async function handleAdminLibrarian(role, id) {
-  console.log(role,id);
-  
     try {
       const result = await axiosSecure.patch(`/users/${id}`, {
         role,
@@ -47,9 +46,11 @@ const AllUser = () => {
 
 
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  console.log(isLoading);
+  
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700 ">

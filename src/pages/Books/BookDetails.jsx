@@ -38,34 +38,28 @@ const BookDetails = () => {
       return result.data;
     },
   });
-useEffect(() => {
-  if (data?._id) {
-    setIId(data._id);
-  }
-}, [data?._id]);
-
+  useEffect(() => {
+    if (data?._id) {
+      setIId(data._id);
+    }
+  }, [data?._id]);
 
   const {
     data: isOrdered = {},
     isFetching,
     error,
   } = useQuery({
-    queryKey: ["order", user?.email,iId],
+    queryKey: ["order", user?.email, iId],
     enabled: !!iId && !!user?.email,
     queryFn: async () => {
-      const result = await axiosSecure.get(
-        `/order/${iId}?email=${user.email}`
-      );
+      const result = await axiosSecure.get(`/order/${iId}?email=${user.email}`);
       return result.data;
     },
   });
 
   console.log(isOrdered._id);
 
-
-
   console.log(iId);
-  
 
   const [img, setImg] = useState();
   useEffect(() => {
@@ -147,8 +141,8 @@ useEffect(() => {
       `/books/${data._id}/review`,
       reviewData
     );
+    document.getElementById("floating_outlined").value = "";
     refetch();
-    console.log(result.data);
   }
 
   return (
@@ -301,29 +295,30 @@ useEffect(() => {
               </button>
             </div>
 
-          {
-            isOrdered._id?  <div class="relative my-2" id="input">
-              <input
-                placeholder="Give a Review..."
-                class="block w-full text-lg h-[50px] px-4 text-slate-900 bg-white rounded-[8px] border border-slate-200 appearance-none focus:border-transparent focus:outline focus:outline-2 focus:outline-primary focus:ring-0 hover:border-brand-500-secondary- peer invalid:border-error-500 invalid:focus:border-error-500 overflow-ellipsis overflow-hidden text-nowrap pr-[48px]"
-                id="floating_outlined"
-                type="text"
-              />
-              <label
-                class="peer-placeholder-shown:-z-10 peer-focus:z-10 absolute text-2xl rounded-2xl leading-[150%] text-primary peer-focus:text-primary peer-invalid:text-error-500 focus:invalid:text-error-500 duration-400 transform -translate-y-[1.2rem] scale-75 top-2 z-10 origin-[0] bg-base-100 data-[disabled]:bg-gray-50-background- px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-[1.2rem] rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                for="floating_outlined"
-              >
-                Review...
-              </label>
-              <button
-                class="absolute top-1/2  right-1 transform -translate-y-1/2 p-1 hover:bg-base-200 rounded-2xl"
-                onClick={handleReview}
-              >
-                <IoMdAddCircle className="w-full h-full text-4xl" />
-              </button>
-            </div>:""
-          }
-        
+            {isOrdered._id ? (
+              <div class="relative my-2" id="input">
+                <input
+                  placeholder="Give a Review..."
+                  class="block w-full text-lg h-[50px] px-4 text-slate-900 bg-white rounded-[8px] border border-slate-200 appearance-none focus:border-transparent focus:outline focus:outline-2 focus:outline-primary focus:ring-0 hover:border-brand-500-secondary- peer invalid:border-error-500 invalid:focus:border-error-500 overflow-ellipsis overflow-hidden text-nowrap pr-[48px]"
+                  id="floating_outlined"
+                  type="text"
+                />
+                <label
+                  class="peer-placeholder-shown:-z-10 peer-focus:z-10 absolute text-2xl rounded-2xl leading-[150%] text-primary peer-focus:text-primary peer-invalid:text-error-500 focus:invalid:text-error-500 duration-400 transform -translate-y-[1.2rem] scale-75 top-2 z-10 origin-[0] bg-base-100 data-[disabled]:bg-gray-50-background- px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-[1.2rem] rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                  for="floating_outlined"
+                >
+                  Review...
+                </label>
+                <button
+                  class="absolute top-1/2  right-1 transform -translate-y-1/2 p-1 hover:bg-base-200 rounded-2xl"
+                  onClick={handleReview}
+                >
+                  <IoMdAddCircle className="w-full h-full text-4xl" />
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
 

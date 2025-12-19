@@ -11,13 +11,10 @@ import useAxiosSecure from "../../customHook/useAxiosSecure";
 const Navber = () => {
   const { user, handleLogOut } = useAuthHook();
 
-
-
-
   function handleSignOut() {
-    handleLogOut().then(()=>{
-      toast.success("Logout Sucessfull")
-    })
+    handleLogOut().then(() => {
+      toast.success("Logout Sucessfull");
+    });
   }
 
   const links = (
@@ -38,24 +35,18 @@ const Navber = () => {
           Books
         </NavLink>
       </li>
-      <li>
-        <NavLink className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300">
-          About
-        </NavLink>
-      </li>
-      <li>
-        <NavLink className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300">
-          Coverage
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300"
-        >
-          Dashboard
-        </NavLink>
-      </li>
+      {user ? (
+        <li>
+          <NavLink
+            to="/dashboard"
+            className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      ) : (
+        ""
+      )}
     </>
   );
   return (

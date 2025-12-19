@@ -1,23 +1,30 @@
-import React from 'react';
-import useAuthHook from '../customHook/useAuthHook';
-import useRole from '../customHook/useRole';
-import Loader from '../components/Loader';
-import { useNavigate } from 'react-router';
+import React, { useEffect } from "react";
+import useRole from "../customHook/useRole";
 
-const AdminRoute = ({children}) => {
-  const {data,isFetching}=useRole()
-  const navigate=useNavigate()
+import { useNavigate } from "react-router";
+import Loader from "../components/Loader";
+
+const AdminRoute = ({ children }) => {
+  const { data, isFetching } = useRole();
+  const navigate = useNavigate();
+
+  console.log(data);
   
-  if (isFetching) {
-    return <Loader/>
+
+
+  useEffect(() => {
+    if (data && data?.role !== "Admin") {
+      navigate("/forbidden");
+    }
+  }, [data, isFetching, navigate]);
+
+
+  if (!data) {
+    return <Loader />;
   }
 
-  
-  if (data.role!="Admin") {
-    navigate("/forbidden")
-  }
-    console.log(data.role);
-  return (children);
+
+  return children;
 };
 
 export default AdminRoute;

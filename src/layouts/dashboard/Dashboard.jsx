@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../../components/Logo';
 import { TiThMenuOutline } from 'react-icons/ti';
 import { ImCancelCircle } from 'react-icons/im';
@@ -9,11 +9,24 @@ import { NavLink, Outlet } from 'react-router';
 import { MdLibraryAdd, MdLibraryBooks } from 'react-icons/md';
 import { FaUserLarge } from 'react-icons/fa6';
 import "./dashboard.css"
-import { FaClipboardList, FaShoppingCart, FaUsers } from 'react-icons/fa';
+import { FaClipboardList, FaHome, FaShoppingCart, FaUsers } from 'react-icons/fa';
+import useRole from '../../customHook/useRole';
+import Loader from '../../components/Loader';
 
 const Dashboard = () => {
   const {user}=useAuthHook()
   const [clicked,setClicked]=useState(false)
+  const [role,setRole]=useState();
+  const {data,isFetching}=useRole()
+
+useEffect(() => {
+  setRole(data?.role);
+}, [data]);
+if (isFetching) {
+  return <Loader/>
+}
+
+
 
   return (
     <div className="drawer lg:drawer-open">
@@ -93,22 +106,45 @@ const Dashboard = () => {
             {/* List item */}
             <li>
               <NavLink
-                to="/dashboard/addBook"
+                to="/"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Add book"
+                data-tip="Home"
               >
                 <label
                   htmlFor="my-drawer-4"
                   aria-label="open sidebar"
                   className="w-full  text-4xl font-bold"
                 >
-                  <MdLibraryAdd />
+                  <FaHome />
                 </label>
                 <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
-                  Add book
+                  Home
                 </span>
               </NavLink>
             </li>
+
+            {role === "Librarian" ? (
+              <li>
+                <NavLink
+                  to="/dashboard/addBook"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Add book"
+                >
+                  <label
+                    htmlFor="my-drawer-4"
+                    aria-label="open sidebar"
+                    className="w-full  text-4xl font-bold"
+                  >
+                    <MdLibraryAdd />
+                  </label>
+                  <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                    Add book
+                  </span>
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
 
             {/* List item */}
             <li>
@@ -129,7 +165,8 @@ const Dashboard = () => {
                 </span>
               </NavLink>
             </li>
-            <li>
+           {
+            role==="Librarian"? <li>
               <NavLink
                 to="/dashboard/myBooks"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -140,65 +177,80 @@ const Dashboard = () => {
                   aria-label="open sidebar"
                   className="w-full  text-4xl font-bold"
                 >
-                  <IoLibrarySharp/>
+                  <IoLibrarySharp />
                 </label>
                 <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
                   My books
                 </span>
               </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/dashboard/ordersonmybook"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Orders on my Book"
-              >
-                <label
-                  htmlFor="my-drawer-4"
-                  aria-label="open sidebar"
-                  className="w-full  text-4xl font-bold"
+            </li>:""
+           }
+            {role === "Librarian" ? (
+              <li>
+                <NavLink
+                  to="/dashboard/ordersonmybook"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Orders on my Book"
                 >
-                  <FaShoppingCart />
-                </label>
-                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
-                  Order on my books
-                </span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/dashboard/allPost"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="All Post">
-                <label
-                  htmlFor="my-drawer-4"
-                  aria-label="open sidebar"
-                  className="w-full  text-4xl font-bold"
+                  <label
+                    htmlFor="my-drawer-4"
+                    aria-label="open sidebar"
+                    className="w-full  text-4xl font-bold"
+                  >
+                    <FaShoppingCart />
+                  </label>
+                  <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                    Order on my books
+                  </span>
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
+            {role === "Admin" ? (
+              <li>
+                <NavLink
+                  to="/dashboard/allPost"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="All Post"
                 >
-                  <MdLibraryBooks/>
-                </label>
-                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
-                  All Post
-                </span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/dashboard/allUsers"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="All Users">
-                <label
-                  htmlFor="my-drawer-4"
-                  aria-label="open sidebar"
-                  className="w-full  text-4xl font-bold"
+                  <label
+                    htmlFor="my-drawer-4"
+                    aria-label="open sidebar"
+                    className="w-full  text-4xl font-bold"
+                  >
+                    <MdLibraryBooks />
+                  </label>
+                  <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                    All Post
+                  </span>
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
+            {role === "Admin" ? (
+              <li>
+                <NavLink
+                  to="/dashboard/allUsers"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="All Users"
                 >
-                  <FaUsers/>
-                </label>
-                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
-                  All Post
-                </span>
-              </NavLink>
-            </li>
+                  <label
+                    htmlFor="my-drawer-4"
+                    aria-label="open sidebar"
+                    className="w-full  text-4xl font-bold"
+                  >
+                    <FaUsers />
+                  </label>
+                  <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                    All Users
+                  </span>
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
             <li>
               <NavLink
                 to="/dashboard/myProfile"

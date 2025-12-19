@@ -3,12 +3,13 @@ import { useForm, useWatch } from "react-hook-form";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import useAuthHook from "../../customHook/useAuthHook";
 import toast from "react-hot-toast";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
 const AddBook = () => {
   const { user } = useAuthHook();
   const coverPlaces=useLoaderData()
   const form = document.getElementById("form");
+  const navigate=useNavigate()
 
   const {
     register,
@@ -67,7 +68,9 @@ const AddBook = () => {
     axiosSecure.post("/addBook", userData).then((data) => {
       if (data.data.insertedId) {
         toast.success("Book added sucessfully");
+        navigate("/dashboard/myBooks");
         form.reset();
+        
       }
     });
   };
