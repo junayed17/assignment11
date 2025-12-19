@@ -32,8 +32,8 @@ const MyBooks = () => {
   console.log(data);
   
  const {
-   data: getEditData, // নাম আলাদা কর
-   isLoading: isEditLoading, // নাম আলাদা কর
+   data: getEditData,
+   isLoading: isEditLoading, 
    isError: isEditError,
  } = useQuery({
    queryKey: ["data", editId],
@@ -62,9 +62,9 @@ const MyBooks = () => {
     }
   }
 
-  async function handleDeleteBook(id) {
-    await axiosSecure.delete(`/books/${id}`).then((result) => {
-      if (result.data.deletedCount) {
+  async function  handleUnpbulishBook(id) {
+    await axiosSecure.patch(`/book/unpublish/${id}`).then((result) => {
+      if (result.data.modifiedCount) {
         toast.success("book Delete sucessfully");
       }
     });
@@ -257,7 +257,7 @@ const MyBooks = () => {
                   disabled={book?.isApprove == "Accepted"}
                   class={`relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
                   type="button"
-                  onClick={() => handleDeleteBook(book._id)}
+                  onClick={() =>  handleUnpbulishBook(book._id)}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">
@@ -290,7 +290,7 @@ const MyBooks = () => {
                   </span>
                   <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                   <span class="relative text-sm  font-bold heading">
-                    Delete
+                    UnPublish
                   </span>
                 </button>
               </td>

@@ -7,7 +7,7 @@ import ThemeToggle from '../../components/ThemeToggle';
 import { IoLibrarySharp, IoMenu } from 'react-icons/io5';
 import { NavLink, Outlet } from 'react-router';
 import { MdLibraryAdd, MdLibraryBooks } from 'react-icons/md';
-import { FaUserLarge } from 'react-icons/fa6';
+import { FaHeartPulse, FaUserLarge } from 'react-icons/fa6';
 import "./dashboard.css"
 import { FaClipboardList, FaHome, FaShoppingCart, FaUsers } from 'react-icons/fa';
 import useRole from '../../customHook/useRole';
@@ -165,26 +165,28 @@ if (isFetching) {
                 </span>
               </NavLink>
             </li>
-           {
-            role==="Librarian"? <li>
-              <NavLink
-                to="/dashboard/myBooks"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My books"
-              >
-                <label
-                  htmlFor="my-drawer-4"
-                  aria-label="open sidebar"
-                  className="w-full  text-4xl font-bold"
+            {role === "Librarian" ? (
+              <li>
+                <NavLink
+                  to="/dashboard/myBooks"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="My books"
                 >
-                  <IoLibrarySharp />
-                </label>
-                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
-                  My books
-                </span>
-              </NavLink>
-            </li>:""
-           }
+                  <label
+                    htmlFor="my-drawer-4"
+                    aria-label="open sidebar"
+                    className="w-full  text-4xl font-bold"
+                  >
+                    <IoLibrarySharp />
+                  </label>
+                  <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                    My books
+                  </span>
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
             {role === "Librarian" ? (
               <li>
                 <NavLink
@@ -251,6 +253,24 @@ if (isFetching) {
             ) : (
               ""
             )}
+            <li>
+              <NavLink
+                to="/dashboard/myWishList"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Wishlist"
+              >
+                <label
+                  htmlFor="my-drawer-4"
+                  aria-label="open sidebar"
+                  className="w-full  text-4xl font-bold"
+                >
+                  <FaHeartPulse />
+                </label>
+                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                  My Wishlist
+                </span>
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to="/dashboard/myProfile"

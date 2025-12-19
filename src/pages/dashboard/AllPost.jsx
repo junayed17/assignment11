@@ -50,6 +50,30 @@ const AllPost = () => {
     refetch();
   }
 
+
+
+const handlePublishUnpublish = async (status, bookId) => {
+  
+  try {
+    const res = await axiosSecure.patch(`/book/pubUnpub/${bookId}`, {
+      status,
+    });
+
+    if (res.data.modifiedCount > 0) {
+      toast.success(`Book ${status} successfully`);
+      refetch();
+    } else {
+      toast.error("No changes made");
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong!");
+  }
+};
+
+
+
+
   if (isLoading) {
     return <Loader />;
   }
@@ -66,7 +90,6 @@ const AllPost = () => {
         <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-blue-600  font-bold">
           total {data.length} posts
         </p>
-      
       </div>
       <table className="table w-full text-sm">
         {/* head */}
@@ -108,10 +131,16 @@ const AllPost = () => {
 
               <td className="text-center flex items-center justify-center gap-2">
                 <button
-                  disabled={book?.isApprove == "Accepted"}
                   class={`relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
                   type="button"
-                  onClick={() => handleUpdateDelete("Accepted", book._id)}
+                  onClick={() =>
+                    handlePublishUnpublish(
+                      book.bookStatus === "Published"
+                        ? "Unpublished"
+                        : "Published",
+                      book._id
+                    )
+                  }
                 >
                   {}
 
@@ -146,11 +175,12 @@ const AllPost = () => {
                   </span>
                   <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                   <span class="relative text-sm  font-bold heading">
-                    Approve
+                    {book.bookStatus === "Published"
+                      ? "Unpublished"
+                      : "Published"}
                   </span>
                 </button>
                 <button
-                  disabled={book?.isApprove == "Accepted"}
                   class={`relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
                   type="button"
                   onClick={() => handleDeleteBook(book._id)}

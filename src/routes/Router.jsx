@@ -22,6 +22,7 @@ import PaymentCancel from "../pages/dashboard/PaymentCancel";
 import PaymentSucess from "../pages/dashboard/PaymentSucess";
 import AdminRoute from "./AdminRoute";
 import LibrarianRoute from "./LibrarianRoute";
+import WishList from "../pages/dashboard/WishList";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
         element: <PaymentCancel />,
       },
       {
+        path: "/dashboard/myWishList",
+        element: <WishList/>,
+      },
+      {
         path: "/dashboard/ordersonmybook",
         element: (
           <LibrarianRoute>
@@ -117,7 +122,7 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllUser />
-           </AdminRoute>
+          </AdminRoute>
         ),
       },
     ],
