@@ -17,7 +17,6 @@ const AddBook = () => {
     control
   } = useForm();
 
-  console.log(coverPlaces);
   const region=coverPlaces.map(ele=>ele.region)
   const regionWithOutDup = [...new Set(region)];
   function Districts(region="Dhaka") {
@@ -27,7 +26,6 @@ const AddBook = () => {
   const updatedRegion = useWatch({ control, name: "region" });
 
   const district=Districts(updatedRegion)
-  console.log(district);
   
   const axiosSecure = useAxiosSecure();
 
@@ -55,15 +53,15 @@ const AddBook = () => {
       image2: image2.data.display_url,
       bookStatus: data.bookStatus,
       category: data.category,
-      edition: data.editon,
+      edition: Number(data.edition),
       district: data.district,
       contact: data.contact,
       region: data.region,
       instruction: data.instruction,
       createdAt: new Date(),
       ownerEmail: user.email,
-      price: data.price,
-      isApprove:"Pending"
+      price: Number(data.price),
+      isApprove: "Pending",
     };
 
     axiosSecure.post("/addBook", userData).then((data) => {
@@ -281,19 +279,19 @@ const AddBook = () => {
                   <input
                     className="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
                     placeholder="017XXXXXXXX"
-                    type="number"
+                    type="tel"
                     {...register("contact", {
                       required: "Contact number is required",
                       minLength: {
-                        value: 10,
-                        message: "Contact number must be 10 digits",
+                        value: 11,
+                        message: "Contact number must be 11 digits",
                       },
                       maxLength: {
-                        value: 10,
-                        message: "Contact number must be 10 digits",
+                        value: 11,
+                        message: "Contact number must be 11 digits",
                       },
                       pattern: {
-                        value: /^1[0-9]{9}$/,
+                        value: /^01[3-9][0-9]{8}$/,
                         message:
                           "Contact number must start with 1 and be 10 digits",
                       },

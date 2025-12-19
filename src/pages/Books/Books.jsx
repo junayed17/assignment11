@@ -16,12 +16,12 @@ const Books = () => {
   } = useQuery({
     queryKey: ["latest", searchTerm,sortItem],
     queryFn: async () => {
-      let url = "/books";
+      let url = "/allBook";
 
       if (searchTerm) {
-        url = `/books?bookName=${searchTerm}`;
+        url = `/book?bookName=${searchTerm}`;
       } else if (sortItem) {
-        url = `/books?sort=${sortItem}`;
+        url = `/allBook?sort=${sortItem}`;
       }
       const data = await axiosSecure.get(url);
       return data.data;
@@ -48,7 +48,6 @@ console.log("Current States:", {searchTerm, sortItem });
         >
           Discover Your Next Favorite Book
         </h2>
-
         <div
           className="h-1 w-32 bg-blue-600 mx-auto rounded-full mb-4"
           data-aos="fade-up"

@@ -20,6 +20,8 @@ import Forbidden from "../components/Forbidden";
 import Payment from "../pages/dashboard/Payment";
 import PaymentCancel from "../pages/dashboard/PaymentCancel";
 import PaymentSucess from "../pages/dashboard/PaymentSucess";
+import AdminRoute from "./AdminRoute";
+import LibrarianRoute from "./LibrarianRoute";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +74,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/myBooks",
         element: <MyBooks />,
+        loader: () => fetch("/warehouses.json"),
       },
       {
         path: "/dashboard/myProfile",
@@ -91,19 +94,31 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/payment-cancelled",
-        element: <PaymentCancel/>,
+        element: <PaymentCancel />,
       },
       {
         path: "/dashboard/ordersonmybook",
-        element: <OrdersOnMyBook />,
+        element: (
+          <LibrarianRoute>
+            <OrdersOnMyBook />
+          </LibrarianRoute>
+        ),
       },
       {
         path: "/dashboard/allPost",
-        element: <AllPost />,
+        element: (
+          <AdminRoute>
+            <AllPost />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/allUsers",
-        element: <AllUser />,
+        element: (
+          <AdminRoute>
+            <AllUser />
+          </AdminRoute>
+        ),
       },
     ],
   },

@@ -4,7 +4,7 @@ import { TiThMenuOutline } from 'react-icons/ti';
 import { ImCancelCircle } from 'react-icons/im';
 import useAuthHook from '../../customHook/useAuthHook';
 import ThemeToggle from '../../components/ThemeToggle';
-import { IoMenu } from 'react-icons/io5';
+import { IoLibrarySharp, IoMenu } from 'react-icons/io5';
 import { NavLink, Outlet } from 'react-router';
 import { MdLibraryAdd, MdLibraryBooks } from 'react-icons/md';
 import { FaUserLarge } from 'react-icons/fa6';
@@ -56,7 +56,6 @@ const Dashboard = () => {
         </nav>
         {/* Page content here */}
         <div className="p-4 bg-base-200 min-h-[90vh]">
-          Page Content
           <Outlet />
         </div>
       </div>
@@ -124,6 +123,24 @@ const Dashboard = () => {
                   className="w-full  text-4xl font-bold"
                 >
                   <FaClipboardList />
+                </label>
+                <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
+                  My orders
+                </span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/dashboard/myBooks"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My books"
+              >
+                <label
+                  htmlFor="my-drawer-4"
+                  aria-label="open sidebar"
+                  className="w-full  text-4xl font-bold"
+                >
+                  <IoLibrarySharp/>
                 </label>
                 <span className="is-drawer-close:hidden text-lg text-black bodyFont font-bold">
                   My books

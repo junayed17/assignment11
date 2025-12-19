@@ -19,7 +19,7 @@ const Payment = () => {
       return result.data;
     },
   });
-  console.log(data);
+  console.log(data,id);
 
   async function handlePayment() {
     const paymentData = {

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import img1 from "../../assets/0bfad7aa-9e1b-4802-b958-879cefd2efe1.jfif";
-import img2 from "../../assets/8841be02-d0ea-4f43-a1a5-c58a4d00d695.jfif";
+import { IoMdAddCircle } from "react-icons/io";
 import {
   FaWhatsapp,
   FaHeart,
   FaStar,
   FaBookOpen,
   FaUserEdit,
+  FaDAndD,
 } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { Link, useParams } from "react-router";
@@ -24,18 +24,49 @@ const BookDetails = () => {
   const { id } = useParams();
   const { user } = useAuthHook();
   const modalRef = useRef();
+  const [iId, setIId] = useState();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["book", id],
     queryFn: async () => {
-      const result = await axiosSecure.get(`/books/${id}`);
+      const result = await axiosSecure.get(`/book/${id}`);
       return result.data;
     },
   });
+useEffect(() => {
+  if (data?._id) {
+    setIId(data._id);
+  }
+}, [data?._id]);
+
+
+  const {
+    data: isOrdered = {},
+    isFetching,
+    error,
+  } = useQuery({
+    queryKey: ["order", user?.email,iId],
+    enabled: !!iId && !!user?.email,
+    queryFn: async () => {
+      const result = await axiosSecure.get(
+        `/order/${iId}?email=${user.email}`
+      );
+      return result.data;
+    },
+  });
+
+  console.log(isOrdered._id);
+
+
+
+  console.log(iId);
+  
+
   const [img, setImg] = useState();
   useEffect(() => {
     if (data?.image1) {
@@ -73,25 +104,25 @@ const BookDetails = () => {
     UserData.payment = "unpaid";
     UserData.title = data.title;
     UserData.price = data.price;
-      axiosSecure
-        .post("/orders", UserData)
-        .then((result) => {
-          if (result.data.insertedId) {
-            modalRef.current.close();
-            Swal.fire({
-              title: "order sucessfully done",
-              icon: "success",
-              draggable: true,
-            });
-          }
-        })
-        .catch((err) => {
+    axiosSecure
+      .post("/orders", UserData)
+      .then((result) => {
+        if (result.data.insertedId) {
+          modalRef.current.close();
           Swal.fire({
-            title: "Somthing Error!",
-            icon: "error",
+            title: "order sucessfully done",
+            icon: "success",
             draggable: true,
           });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Somthing Error!",
+          icon: "error",
+          draggable: true,
         });
+      });
   }
 
   function handleCancel() {
@@ -101,6 +132,23 @@ const BookDetails = () => {
       icon: "error",
       draggable: true,
     });
+  }
+
+  // review function
+  async function handleReview() {
+    const review = document.getElementById("floating_outlined").value.trim();
+
+    const reviewData = {
+      comment: review,
+      name: user.displayName,
+      photo: user.photoURL,
+    };
+    const result = await axiosSecure.patch(
+      `/books/${data._id}/review`,
+      reviewData
+    );
+    refetch();
+    console.log(result.data);
   }
 
   return (
@@ -252,7 +300,54 @@ const BookDetails = () => {
                 <span>Wishlist</span>
               </button>
             </div>
+
+          {
+            isOrdered._id?  <div class="relative my-2" id="input">
+              <input
+                placeholder="Give a Review..."
+                class="block w-full text-lg h-[50px] px-4 text-slate-900 bg-white rounded-[8px] border border-slate-200 appearance-none focus:border-transparent focus:outline focus:outline-2 focus:outline-primary focus:ring-0 hover:border-brand-500-secondary- peer invalid:border-error-500 invalid:focus:border-error-500 overflow-ellipsis overflow-hidden text-nowrap pr-[48px]"
+                id="floating_outlined"
+                type="text"
+              />
+              <label
+                class="peer-placeholder-shown:-z-10 peer-focus:z-10 absolute text-2xl rounded-2xl leading-[150%] text-primary peer-focus:text-primary peer-invalid:text-error-500 focus:invalid:text-error-500 duration-400 transform -translate-y-[1.2rem] scale-75 top-2 z-10 origin-[0] bg-base-100 data-[disabled]:bg-gray-50-background- px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-[1.2rem] rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                for="floating_outlined"
+              >
+                Review...
+              </label>
+              <button
+                class="absolute top-1/2  right-1 transform -translate-y-1/2 p-1 hover:bg-base-200 rounded-2xl"
+                onClick={handleReview}
+              >
+                <IoMdAddCircle className="w-full h-full text-4xl" />
+              </button>
+            </div>:""
+          }
+        
           </div>
+        </div>
+
+        {/* reviews */}
+
+        <div className="my-8">
+          <h1 className="text-4xl font-extrabold leading-tight heading">
+            All Of the reviews:
+          </h1>
+
+          {data?.reviews?.length < 1 ? (
+            <h3 className="text-2xl text-base-400 mt-4">No reviews yet</h3>
+          ) : (
+            data.reviews.map((review, index) => (
+              <div key={index} className="chat chat-start mt-4">
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">
+                    <img alt="avatar" src={review.photo} />
+                  </div>
+                </div>
+                <div className="chat-bubble">{review.comment}</div>
+              </div>
+            ))
+          )}
         </div>
         <dialog id="my_modal_3" className="modal" ref={modalRef}>
           <div className="modal-box">

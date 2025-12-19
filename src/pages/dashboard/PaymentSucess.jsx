@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router';
+import useAxiosSecure from '../../customHook/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const PaymentSucess = () => {
+  const axiosSecure=useAxiosSecure();
+const [searchParams, setSearchParams] = useSearchParams();
+const sessionId=searchParams.get("session_id")
+
+
+const {
+  data={},
+  isLoading,
+  isError,
+} = useQuery({
+  queryKey: ["payment-status", sessionId],
+  enabled: !!sessionId, // sessionId থাকলেই কেবল কুয়েরি চলবে
+  queryFn: async () => {
+    const result = await axiosSecure.patch(`/payment?sessionId=${sessionId}`);
+    return result.data;
+  },
+});
+console.log(data);
+
+  
   return (
     <div class="min-h-screen flex items-center justify-center bg-base-50  p-4 transition-colors duration-300">
       <div class="max-w-md w-full bg-base-100 rounded-3xl shadow-xl overflow-hidden border border-base-100 d">
@@ -34,27 +57,21 @@ const PaymentSucess = () => {
 
           <div class="bg-base-50  rounded-2xl p-4 mb-8">
             <div class="flex justify-between py-2 border-b border-base-200 ">
-              <span class="text-base-500  text-sm">
-                Amount Paid
-              </span>
+              <span class="text-base-500  text-sm">Amount Paid</span>
               <span class="text-base-800  font-semibold">
-                $120.00
+                ${data?.pamentData?.paid_amount_total||0}
               </span>
             </div>
             <div class="flex justify-between py-2 border-b border-base-200 ">
-              <span class="text-base-500  text-sm">
-                Transaction ID
-              </span>
+              <span class="text-base-500  text-sm">Transaction ID</span>
               <span class="text-base-800 font-mono text-sm">
-                #TXN-9982341
+                {data?.pamentData?.transectionId||9}
               </span>
             </div>
             <div class="flex justify-between py-2">
-              <span class="text-base-500  text-sm">
-                Payment Method
-              </span>
+              <span class="text-base-500  text-sm">Payment Method</span>
               <span class="text-base-800  font-semibold italic text-sm">
-                Visa Card
+                {data?.pamentData?.method||"Card"}
               </span>
             </div>
           </div>
@@ -63,9 +80,12 @@ const PaymentSucess = () => {
             <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg shadow-blue-200 dark:shadow-none">
               Download Receipt
             </button>
-            <button class="w-full bg-transparent border-2 border-base-200  text-base-600  font-semibold py-3 px-6 rounded-xl hover:bg-base-50  transition-all">
+            <Link
+              class="w-full bg-transparent border-2 border-base-200  text-base-600  font-semibold py-3 px-6 rounded-xl hover:bg-base-50  transition-all w-full"
+              to="/dashboard"
+            >
               Back to Dashboard
-            </button>
+            </Link>
           </div>
         </div>
 

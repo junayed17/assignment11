@@ -14,7 +14,7 @@ const LatestBooks = () => {
   } = useQuery({
     queryKey: ["latest"],
     queryFn: async () => {
-      const data = await axiosSecure.get("/books?limit=6");
+      const data = await axiosSecure.get("/books/latest");
       return data.data;
     },
   });

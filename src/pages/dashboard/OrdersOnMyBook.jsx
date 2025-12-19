@@ -19,18 +19,20 @@ const OrdersOnMyBook = () => {
   } = useQuery({
     queryKey: ["orders", user?.email],
     queryFn: async () => {
-      const result = await axiosSecure.get(`/myOrders?lEmail=${user.email}`);
+      const result = await axiosSecure.get(
+        `/ordersOnMine?lEmail=${user.email}`
+      );
       return result.data;
     },
   });
 
   async function handleStatusChange(id, status) {
-      console.log(id,status);
+    console.log(id, status);
     await axiosSecure
       .patch(`/order/updateStatus?id=${id}`, { updatedStatus: status })
-      .then((result) =>{
+      .then((result) => {
         console.log(result.data);
-        
+
         if (result.data.modifiedCount) {
           toast.success(`status transform to ${status} sucessfully`);
         }
