@@ -88,7 +88,7 @@ const Navber = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
 
-        <div className=" flex items-center justify-end sm:navbar-end">
+        <div className="navbar-end">
           {user ? (
             <div
               className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300 tooltip tooltip-bottom hidden sm:block"
