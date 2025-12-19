@@ -9,7 +9,7 @@ import {
   FaDAndD,
 } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import Loader from "../../components/Loader";
@@ -25,6 +25,7 @@ const BookDetails = () => {
   const { user } = useAuthHook();
   const modalRef = useRef();
   const [iId, setIId] = useState();
+  const Navigate=useNavigate()
 
   const {
     register,
@@ -108,6 +109,7 @@ const BookDetails = () => {
             icon: "success",
             draggable: true,
           });
+          Navigate("/dashboard/orders");
         }
       })
       .catch((err) => {
@@ -354,14 +356,14 @@ const BookDetails = () => {
             </form>
             <form
               action=""
-              className="w-full max-w-lg shadow-2xl bg-base-100 px-8 py-8 rounded-2xl"
+              className="w-full max-w-lg shadow-2xl bg-base-100 px-3 md:px-8 py-8 rounded-2xl"
               onSubmit={handleSubmit(handleBookOrder)}
             >
               <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading font-bold text-center">
                 Welcome Back
               </h2>
               <p className="text-lg md:text-2xl text-center bodyFont">
-                Update with BoolQurier
+                Order with BoolQurier
               </p>
               <fieldset className="fieldset">
                 <div className="my-2">

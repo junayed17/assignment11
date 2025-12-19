@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { GoArrowUpRight } from "react-icons/go";
 import Logo from "../../components/Logo";
@@ -7,15 +7,17 @@ import useAuthHook from "../../customHook/useAuthHook";
 import toast from "react-hot-toast";
 import Loader from "../../components/Loader";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
+import { set } from "react-hook-form";
 
 const Navber = () => {
   const { user, handleLogOut } = useAuthHook();
-
   function handleSignOut() {
     handleLogOut().then(() => {
       toast.success("Logout Sucessfull");
     });
   }
+
+
 
   const links = (
     <>
@@ -50,7 +52,7 @@ const Navber = () => {
     </>
   );
   return (
-    <div className=" bg-base-100 shadow-[0_4px_12px_rgba(0,0,0,0.25)]   max-w-[1440px] mx-2 lg:mx-auto rounded-3xl px-2 my-4 ">
+    <div className=" bg-base-100 shadow-[0_4px_12px_rgba(0,0,0,0.25)]   max-w-[1440px] mx-2 lg:mx-auto rounded-3xl px-2 my-4">
       <div className="navbar">
         <div className=" navbar-start ">
           <div className="dropdown z-10">

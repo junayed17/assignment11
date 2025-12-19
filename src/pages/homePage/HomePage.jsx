@@ -12,8 +12,9 @@ const HomePage = () => {
       <Slider />
       <LatestBooks />
       <Coverage />
-      <Overview/>
-      <WhyChooseUs/>
+      <WhyChooseUs />
+      <Overview />
+
       <HowItWork />
     </div>
   );

@@ -33,20 +33,12 @@ const HowItWork = () => {
       {/* Section Header */}
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-4">
-          <span
-            className="w-10 h-[2px] bg-blue-500"
-            data-aos="fade-down"
-          ></span>
           <h2
             className="headingFont text-3xl sm:text-4xl md:text-5xl font-bold text-blue-400 heading"
             data-aos="fade-up"
           >
             How It Works
           </h2>
-          <span
-            className="w-10 h-[2px] bg-blue-600"
-            data-aos="fade-down"
-          ></span>
         </div>
         <p className="mt-4 text-blue-300 bodyFont" data-aos="fade-up">
           Buying books is simple, fast, and secure

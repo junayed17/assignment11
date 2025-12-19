@@ -29,6 +29,8 @@ const MyBooks = () => {
     },
   });
 
+  console.log(data);
+  
  const {
    data: getEditData, // নাম আলাদা কর
    isLoading: isEditLoading, // নাম আলাদা কর

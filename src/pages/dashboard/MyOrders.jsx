@@ -10,17 +10,21 @@ const MyOrders = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuthHook();
 
-  const {
-    data = [],
-    error,
-    isLoading,
-  } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["myOrders", user?.email],
     queryFn: async () => {
       const result = await axiosSecure.get(`/myOrders?uEmail=${user.email}`);
       return result.data;
     },
   });
+
+  console.log(data, error, isLoading);
+
+  async function deleteOrder(id) {
+    const result = await axiosSecure.delete(`/order/delete/${id}`);
+    console.log(result.data);
+    refetch();
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -117,7 +121,8 @@ const MyOrders = () => {
                   </Link>
                   <button
                     class="relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
-                    type="submit"
+                    type="button"
+                    onClick={() => deleteOrder(book.bookId)}
                   >
                     <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                     <span class="absolute bottom-0 left-0 h-full -ml-2">
