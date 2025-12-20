@@ -14,13 +14,14 @@ const Payment = () => {
     isLoading,
   } = useQuery({
     queryKey: ["payment", id],
+    enabled:!!user.email,
     queryFn: async () => {
-      const result = await axiosSecure.get(`/payment/${id}`);
+      const result = await axiosSecure.get(`/payment/${id}?email=${user.email}`);
       return result.data;
     },
   });
   console.log(data,id);
-
+  
   async function handlePayment() {
     const paymentData = {
       cost: Number(data.price) / 100,

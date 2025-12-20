@@ -10,7 +10,7 @@ const MyOrders = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuthHook();
 
-  const { data, error, isLoading, refetch } = useQuery({
+  const { data=[], error, isLoading, refetch } = useQuery({
     queryKey: ["myOrders", user?.email],
     queryFn: async () => {
       const result = await axiosSecure.get(`/myOrders?uEmail=${user.email}`);
@@ -22,7 +22,8 @@ const MyOrders = () => {
     refetch();
   }
 
-
+  console.log(data);
+  
   if (isLoading) {
     return <Loader />;
   }
