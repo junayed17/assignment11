@@ -1,9 +1,6 @@
 # 📚 BookCourier – Library-to-Home Delivery System (Client)
 
-🔗 **Live Site:** https://your-live-site-link.netlify.app  
-🔗 **Server Repository:** https://github.com/your-username/book-courier-server  
-🔗 **Client Repository:** https://github.com/your-username/book-courier-client  
-
+🔗 **Live Site:**https://bookcourierbd.netlify.app
 ---
 
 ## 🧠 Project Purpose
@@ -40,8 +37,8 @@ This project is designed to demonstrate **real-world MERN stack frontend skills*
 ---
 
 ### 🏠 Home Page
-- Banner with **3 sliders** (book image, title, description, CTA)
-- Latest Books section (last 4–6 added books)
+- Banner with **4 sliders** (book image, title, description, CTA)
+- Latest Books section (last 6 added books)
 - Coverage section with **interactive map** (React Leaflet)
 - “Why Choose BookCourier” section
 - Additional custom-designed sections
@@ -61,7 +58,7 @@ This project is designed to demonstrate **real-world MERN stack frontend skills*
 ### 📖 Book Details
 - Complete book information
 - Wishlist button
-- Rating & review system (only ordered users)
+- review system (only ordered users)
 - “Order Now” modal with:
   - Name (readonly)
   - Email (readonly)
