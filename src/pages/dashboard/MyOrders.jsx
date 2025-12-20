@@ -22,7 +22,9 @@ const MyOrders = () => {
     refetch();
   }
 
-  console.log(data);
+
+
+  console.log(data[0]?._id);
   
   if (isLoading) {
     return <Loader />;
@@ -86,7 +88,7 @@ const MyOrders = () => {
                   ) : (
                     <Link
                       class="relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
-                      to={`/dashboard/payment/${book.bookId}`}
+                      to={`/dashboard/payment/${book._id}`}
                     >
                       <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                       <span class="absolute bottom-0 left-0 h-full -ml-2">
@@ -127,7 +129,7 @@ const MyOrders = () => {
  {book.status === "Pending" ?  <button
                     class="relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
                     type="button"
-                    onClick={() => deleteOrder(book.bookId)}
+                    onClick={() => deleteOrder(book._id)}
                   >
                     <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                     <span class="absolute bottom-0 left-0 h-full -ml-2">

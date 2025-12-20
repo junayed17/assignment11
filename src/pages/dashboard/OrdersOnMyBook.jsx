@@ -40,8 +40,6 @@ const OrdersOnMyBook = () => {
     refetch();
   }
 
-
-
   async function deleteOrder(id) {
     const result = await axiosSecure.delete(`/order/delete/${id}`);
     console.log(result.data);
@@ -49,7 +47,6 @@ const OrdersOnMyBook = () => {
   }
 
   console.log(data);
-  
 
   if (isLoading) {
     return <Loader />;
@@ -77,6 +74,7 @@ const OrdersOnMyBook = () => {
           <tr>
             <th>#</th>
             <th>Title</th>
+            <th>Customer Name</th>
             <th>Order Date</th>
             <th>Payment Status</th>
             <th>Status</th>
@@ -94,6 +92,7 @@ const OrdersOnMyBook = () => {
               <th>{index + 1}</th>
 
               <td className="font-medium">{book.title}</td>
+              <td className="font-medium">{book.name}</td>
 
               <td>{dayjs(book.orderAt).format("DD MMM YYYY, hh:mm A")}</td>
               <td>{book.payment}</td>
@@ -102,7 +101,7 @@ const OrdersOnMyBook = () => {
                 <select
                   value={book.status}
                   onChange={(e) =>
-                    handleStatusChange(book.bookId, e.target.value)
+                    handleStatusChange(book._id, e.target.value)
                   }
                   className={`px-3 py-1 rounded-full text-xs font-semibold cursor-pointer
       border outline-none
@@ -131,7 +130,7 @@ const OrdersOnMyBook = () => {
                   class="relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
                   type="button"
                   onClick={() => {
-                    deleteOrder(book.bookId);
+                    deleteOrder(book._id);
                   }}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>

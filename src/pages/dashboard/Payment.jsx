@@ -26,7 +26,7 @@ const Payment = () => {
     const paymentData = {
       cost: Number(data.price) / 100,
       bookName: data.title,
-      bookId: data.bookId,
+      bookId: data._id,
       senderEmail: data.email,
     };
     const result = await axiosSecure.post(
