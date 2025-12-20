@@ -9,6 +9,7 @@ import Overview from "./Overview";
 const HomePage = () => {
   return (
     <div>
+      <title>BookCurier | Home</title>
       <Slider />
       <LatestBooks />
       <Coverage />

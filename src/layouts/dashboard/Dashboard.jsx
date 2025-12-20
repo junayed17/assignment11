@@ -114,7 +114,7 @@ if (isFetching) {
           </div>
         </nav>
         {/* Page content here */}
-        <div className="p-4 bg-base-200 min-h-[90vh]">
+        <div className="p-4 bg-base-200 min-h-[90vh] mx-2">
           <Outlet />
         </div>
       </div>

@@ -109,6 +109,11 @@ console.log(role);
 
   return (
     <div class=" cursor-pointer transform transition-all duration-500 hover:scale-105  max-w-[500px] mx-auto  my-10 ">
+      <title>BookCurier | My Profile</title>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
+      </div>
       <div class="text-white rounded-3xl border border-blue-500/20 bg-gray-300 shadow-2xl duration-700 z-10 relative backdrop-blur-xl hover:border-blue-500/40 overflow-hidden hover:shadow-blue-500/10 hover:shadow-3xl w-full">
         <div class="p-4 md:p-8 relative z-10 w-full">
           <div class="flex flex-col items-center text-center w-full">

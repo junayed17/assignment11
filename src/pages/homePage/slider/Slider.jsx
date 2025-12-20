@@ -15,33 +15,27 @@ import { Link } from "react-router";
 
 const img = [
   {
-    imgUrl: "https://i.ibb.co.com/G4k8Vbdn/istockphoto-1345329817-612x612.jpg",
+    imgUrl:
+      "https://i.ibb.co.com/QvfSrHK9/240-F-1588280817-mgs6-W5-L9ot2-H83uxt8-C38-Pzg-Xbp-Z5r-GB.jpg",
     title: "Fast & Reliable Book Delivery , Anywhere in Your City!",
     subTitle: "Order today, get your book at your doorstep within 24 hours.",
-    cta: "Log In",
-    path: "/login",
   },
   {
-    imgUrl: "https://i.ibb.co.com/5WY4zQtr/image.png",
+    imgUrl:
+      "https://i.ibb.co.com/ZzbyLt6v/book-open-pages-close-up-600nw-2562942291.webp",
     title: "Cheapest Delivery Charge , No Hidden Fees",
     subTitle: "Pay only for what you send. No extra charge. No surprise cost.",
-    cta: "Check Delivery Charge",
-    path: "/deliveryCharge",
   },
   {
-    imgUrl: "https://i.ibb.co.com/3mMSS2NP/istockphoto-2065160250-612x612.jpg",
+    imgUrl: "https://i.ibb.co.com/pvxjF22y/book-stack.png",
     title: "Track Your Book in Real Time",
     subTitle: "Know exactly where your courier is — live location tracking.",
-    cta: "Track Now",
-    path: "/myOrders",
   },
   {
     imgUrl:
       "https://i.ibb.co.com/8gLHg14m/cardboard-boxes-bubble-wrap-adhesive-tape-scissors-dark-grey-table-247612398.webp",
     title: "Safe Packaging — Your Books Stay Perfect",
     subTitle: "Every book is carefully bubble-wrapped and waterproof sealed.",
-    cta: "Order Now",
-    path: "/allBooks",
   },
 ];
 
@@ -87,7 +81,7 @@ export default function Slider() {
                   </p>
 
                   <Link
-                    to={ele.path}
+                    to="/books"
                     className="relative hidden sm:inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group"
                   >
                     <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
@@ -121,7 +115,7 @@ export default function Slider() {
                     </span>
                     <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                     <span class="relative text-base font-semibold">
-                      {ele.cta}
+                      Explore Books
                     </span>
                   </Link>
                 </div>

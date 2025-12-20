@@ -26,7 +26,12 @@ console.log(data);
   
   return (
     <div class="min-h-screen flex items-center justify-center bg-base-50  p-4 transition-colors duration-300">
+      <title>BookCurier | Payment Sucess</title>
       <div class="max-w-md w-full bg-base-100 rounded-3xl shadow-xl overflow-hidden border border-base-100 d">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
+        </div>
         <div class="bg-blue-600 p-4 sm:p-8 flex justify-center">
           <div class="bg-white/20 p-2 sm:p-4 rounded-full animate-bounce">
             <svg
@@ -59,19 +64,19 @@ console.log(data);
             <div class="flex justify-between py-2 border-b border-base-200 ">
               <span class="text-base-500  text-sm">Amount Paid</span>
               <span class="text-base-800  font-semibold">
-                ${data?.pamentData?.paid_amount_total||0}
+                ${Number(data?.pamentData?.paid_amount_total / 100) || 0}
               </span>
             </div>
             <div class="flex justify-between py-2 border-b border-base-200 ">
               <span class="text-base-500  text-sm">Transaction ID</span>
               <span class="text-base-800 font-mono text-sm">
-                {data?.pamentData?.transectionId||9}
+                {data?.pamentData?.transectionId || 9}
               </span>
             </div>
             <div class="flex justify-between py-2">
               <span class="text-base-500  text-sm">Payment Method</span>
               <span class="text-base-800  font-semibold italic text-sm">
-                {data?.pamentData?.method||"Card"}
+                {data?.pamentData?.method || "Card"}
               </span>
             </div>
           </div>

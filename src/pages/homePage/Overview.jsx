@@ -4,21 +4,25 @@ import CountUp from 'react-countup';
 const Overview = () => {
   return (
     <div className="my-6 bg-base-300 rounded-2xl shadow py-10">
-      <div className="text-center my-12">
-        <div className="flex items-center justify-center gap-4">
-          <h2
-            className="headingFont text-3xl sm:text-4xl md:text-5xl font-bold text-blue-400 heading"
-            data-aos="fade-up"
-          >
-            Overview
-          </h2>
-        </div>
-        <p className="mt-4 text-blue-300 bodyFont" data-aos="fade-up">
-          A quick snapshot of our bookstore’s activity and growth
+      <div className=" text-center my-4">
+        <h2
+          className=" text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
+          data-aos="fade-up"
+        >
+          Overview
+        </h2>
+
+        <div
+          className="h-1 w-32 bg-blue-600 mx-auto rounded-full mb-4"
+          data-aos="fade-up"
+        ></div>
+
+        <p className="text-blue-500 text-lg bodyFont" data-aos="fade-up">
+          A quick snapshot of our bookCourier’s activity and growth
         </p>
       </div>
       <div
-        className="shadow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+        className="shadow grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center justify-center  mx-2 rounded-2xl"
         data-aos="fade-up"
       >
         <div className="stat">
@@ -104,12 +108,7 @@ const Overview = () => {
             </div>
           </div>
           <div className="stat-value text-primary flex items-center justify-start gap-1">
-            <CountUp
-              start={0}
-              end={86}
-              duration={2.75}
-              enableScrollSpy={true}
-            >
+            <CountUp start={0} end={86} duration={2.75} enableScrollSpy={true}>
               {({ countUpRef }) => (
                 <div>
                   <span ref={countUpRef} />

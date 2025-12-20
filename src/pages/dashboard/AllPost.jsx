@@ -80,7 +80,12 @@ const handlePublishUnpublish = async (status, bookId) => {
 
   return (
     <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700 ">
+      <title>BookCurier | All book post</title>
       <div className="my-8">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
+        </div>
         <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
           All Book Posts
         </h2>
@@ -97,7 +102,7 @@ const handlePublishUnpublish = async (status, bookId) => {
           <tr>
             <th>#</th>
             <th>Title</th>
-            <th>Order Date</th>
+            <th>Posted Date</th>
             <th>Author</th>
             <th>Publish status</th>
             <th>Status</th>
@@ -116,7 +121,7 @@ const handlePublishUnpublish = async (status, bookId) => {
 
               <td className="font-medium">{book.title}</td>
 
-              <td>{dayjs(book.orderAt).format("DD MMM YYYY, hh:mm A")}</td>
+              <td>{dayjs(book.createdAt).format("DD MMM YYYY, hh:mm A")}</td>
               <td className="font-medium">{book.author}</td>
               <td className="font-medium">{book.bookStatus}</td>
               <td>

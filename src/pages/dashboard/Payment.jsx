@@ -23,7 +23,7 @@ const Payment = () => {
 
   async function handlePayment() {
     const paymentData = {
-      cost: data.price,
+      cost: Number(data.price) / 100,
       bookName: data.title,
       bookId: data.bookId,
       senderEmail: data.email,
@@ -39,6 +39,7 @@ const Payment = () => {
 
   return (
     <div>
+      <title>BookCurier | Payment</title>
       <button
         className="bg-amber-100 p-4 rounded-2xl shadow"
         onClick={handlePayment}

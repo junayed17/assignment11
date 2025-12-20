@@ -33,14 +33,15 @@ const Books = () => {
     setSearchTerm(bookName)
   }
 
+  
   if (!data) {
     return <Loader/>
   }
 
-console.log("Current States:", {searchTerm, sortItem });
   
   return (
     <div className="my-10">
+      <title>BookCurier | Books</title>
       <div className="max-w-[500px] mx-auto text-center">
         <h2
           className=" text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"

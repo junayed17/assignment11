@@ -1,12 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  // flyTo,
-} from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+// --- Leaflet Marker Fix Start ---
+// Netlify তে ইমেজ পাথ ঠিক রাখার জন্য এই কোডটুকু প্রয়োজন
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+// --- Leaflet Marker Fix End ---
+
 const position = [23.8103, 90.4125];
 
 const Coverage = () => {
@@ -20,16 +32,21 @@ const Coverage = () => {
       ele.district.toLowerCase().includes(searchArea)
     );
 
-    const newPosition = [newArea[0].latitude, newArea[0].longitude];
-    console.log(newPosition);
-    posRef.current.flyTo(newPosition,15)
-    // flyTo(newPosition, 10);
+    // যদি সার্চ রেজাল্ট পাওয়া যায় তবেই flyTo কাজ করবে
+    if (newArea.length > 0 && posRef.current) {
+      const newPosition = [newArea[0].latitude, newArea[0].longitude];
+      console.log("Flying to:", newPosition);
+      posRef.current.flyTo(newPosition, 12);
+    } else {
+      alert("Area not found! Please try another name.");
+    }
   }
 
   useEffect(() => {
     fetch("./warehouses.json")
       .then((data) => data.json())
-      .then((result) => setArea(result));
+      .then((result) => setArea(result))
+      .catch((err) => console.error("Error loading JSON:", err));
   }, []);
 
   return (
@@ -52,20 +69,20 @@ const Coverage = () => {
         </p>
         <div className="flex items-center justify-center mt-5">
           <input
-            class="bg-zinc-200 text-zinc-600 font-mono ring-1 ring-zinc-400 focus:ring-2 focus:ring-blue-500 outline-none duration-300 placeholder:text-zinc-600 placeholder:opacity-50 rounded-full px-4 py-2 shadow-md focus:shadow-lg focus:shadow-ring-blue-500 dark:shadow-md dark:shadow-purple-500"
-            autocomplete="off"
+            className="bg-zinc-200 text-zinc-600 font-mono ring-1 ring-zinc-400 focus:ring-2 focus:ring-blue-500 outline-none duration-300 placeholder:text-zinc-600 placeholder:opacity-50 rounded-full px-4 py-2 shadow-md focus:shadow-lg focus:shadow-ring-blue-500"
+            autoComplete="off"
             placeholder="Search by city, area..."
             name="text"
             type="text"
             ref={searchRef}
           />
           <button
-            class="rounded-full bg-zinc-200 text-zinc-600 font-mono ring-1 ring-zinc-400 focus:ring-2 focus:ring-rose-400 outline-none duration-300 placeholder:text-zinc-600 placeholder:opacity-50 rounded-full px-2 py-2 rotate-[45deg] ml-2 shadow-md focus:shadow-lg focus:shadow-rose-400 dark:shadow-md dark:shadow-purple-500"
+            className="rounded-full bg-zinc-200 text-zinc-600 font-mono ring-1 ring-zinc-400 focus:ring-2 focus:ring-rose-400 outline-none duration-300 px-2 py-2 rotate-[45deg] ml-2 shadow-md focus:shadow-lg focus:shadow-rose-400"
             onClick={handleSearch}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-6"
+              className="w-6"
               viewBox="0 0 128 128"
             >
               <path
@@ -164,7 +181,7 @@ const Coverage = () => {
       >
         <MapContainer
           center={position}
-          zoom={7.25}
+          zoom={7}
           className="h-[90vh] rounded-2xl"
           scrollWheelZoom={false}
           ref={posRef}
@@ -183,7 +200,6 @@ const Coverage = () => {
                     <h3 className="text-lg font-bold text-blue-600 mb-1">
                       Covered Area
                     </h3>
-
                     <div className="text-gray-700 text-sm bg-gray-100 p-2 rounded">
                       {ele.covered_area.join(", ")}
                     </div>

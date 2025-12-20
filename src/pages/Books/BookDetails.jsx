@@ -149,6 +149,7 @@ const BookDetails = () => {
 
   return (
     <div className="bg-gradient-to-br from-base-100 via-base-200 to-base-300 min-h-screen py-14 rounded-2xl my-10">
+      <title>BookCurier | Book Details</title>
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
           {/* IMAGE */}
@@ -229,7 +230,7 @@ const BookDetails = () => {
             {/* Contact */}
             <div className="flex items-center gap-3 text-success font-semibold">
               <FaWhatsapp className="text-2xl" />
-              <span className="text-sm sm:text-lg">0{data.contact}</span>
+              <span className="text-sm sm:text-lg">{data.contact}</span>
             </div>
 
             {/* CTA */}

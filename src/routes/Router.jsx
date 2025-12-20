@@ -23,6 +23,7 @@ import PaymentSucess from "../pages/dashboard/PaymentSucess";
 import AdminRoute from "./AdminRoute";
 import LibrarianRoute from "./LibrarianRoute";
 import WishList from "../pages/dashboard/WishList";
+import DashboardHome from "../pages/dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: "true",
+        element: <DashboardHome />,
+      },
+      {
         path: "/dashboard/addBook",
         element: <AddBook />,
         loader: () => fetch("/warehouses.json"),
@@ -99,7 +104,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/myWishList",
-        element: <WishList/>,
+        element: <WishList />,
       },
       {
         path: "/dashboard/ordersonmybook",

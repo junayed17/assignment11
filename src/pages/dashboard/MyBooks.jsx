@@ -160,7 +160,12 @@ const MyBooks = () => {
 
   return (
     <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700 ">
+      <title>BookCurier | My Books</title>
       <div className="my-8">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
+        </div>
         <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
           All My Book Posts
         </h2>
@@ -180,7 +185,6 @@ const MyBooks = () => {
             <th>Category</th>
             <th>Author</th>
             <th>Publish status</th>
-            <th>Status</th>
             <th className="text-center">Action</th>
           </tr>
         </thead>
@@ -192,22 +196,21 @@ const MyBooks = () => {
               className="hover:bg-base-50  hover:bg-blue-100 duration-300 py-0"
               key={book._id}
             >
-              <th>{index + 1}</th>
+              <td>
+                <div className="relative mr-2 h-15 w-15 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 via-sky-400 to-red-500 shadow-md hover:scale-105 transition duration-300 tooltip tooltip-bottom hidden sm:block">
+                  <img
+                    className="h-full w-full rounded-full object-cover"
+                    src={book.image1}
+                    alt="book"
+                  />
+                </div>
+              </td>
 
               <td className="font-medium">{book.title}</td>
 
               <td>{book.category}</td>
               <td className="font-medium">{book.author}</td>
               <td className="font-medium">{book.bookStatus}</td>
-              <td>
-                <span
-                  className="px-3 py-1 rounded-full text-xs font-semibold 
-            bg-green-100 text-green-600 
-            dark:bg-green-900 dark:text-green-300"
-                >
-                  {book.isApprove}
-                </span>
-              </td>
 
               <td className="text-center flex items-center justify-center gap-2">
                 <button
@@ -254,10 +257,10 @@ const MyBooks = () => {
                   <span class="relative text-sm  font-bold heading">Edit</span>
                 </button>
                 <button
-                  disabled={book?.isApprove == "Accepted"}
+                  disabled={book.bookStatus === "Unpublished" ? true : false}
                   class={`relative inline-flex items-center justify-center w-22 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
                   type="button"
-                  onClick={() =>  handleUnpbulishBook(book._id)}
+                  onClick={() => handleUnpbulishBook(book._id)}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">
@@ -290,7 +293,7 @@ const MyBooks = () => {
                   </span>
                   <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
                   <span class="relative text-sm  font-bold heading">
-                    UnPublish
+                    Unpublish
                   </span>
                 </button>
               </td>

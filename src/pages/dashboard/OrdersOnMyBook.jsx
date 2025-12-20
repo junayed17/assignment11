@@ -48,6 +48,8 @@ const OrdersOnMyBook = () => {
     refetch();
   }
 
+  console.log(data);
+  
 
   if (isLoading) {
     return <Loader />;
@@ -55,7 +57,12 @@ const OrdersOnMyBook = () => {
 
   return (
     <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700">
+      <title>BookCurier | Order On My Book</title>
       <div className="my-8">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
+        </div>
         <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
           Orders on My Books
         </h2>
@@ -71,6 +78,7 @@ const OrdersOnMyBook = () => {
             <th>#</th>
             <th>Title</th>
             <th>Order Date</th>
+            <th>Payment Status</th>
             <th>Status</th>
             <th className="text-center">Action</th>
           </tr>
@@ -88,6 +96,7 @@ const OrdersOnMyBook = () => {
               <td className="font-medium">{book.title}</td>
 
               <td>{dayjs(book.orderAt).format("DD MMM YYYY, hh:mm A")}</td>
+              <td>{book.payment}</td>
 
               <td>
                 <select
@@ -118,11 +127,12 @@ const OrdersOnMyBook = () => {
               </td>
 
               <td className="text-center flex items-center justify-center gap-2">
-
                 <button
                   class="relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
                   type="button"
-                  onClick={()=>{deleteOrder(book.bookId)}}
+                  onClick={() => {
+                    deleteOrder(book.bookId);
+                  }}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">

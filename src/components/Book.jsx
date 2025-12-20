@@ -41,7 +41,7 @@ const Book = ({ bookSetails }) => {
           <kbd className="kbd transform hover:scale-105 duration-300">
             <FaPenNib className="text-indigo-500 bodyFont" />
             <span className="text-gray-700 bodyFont text-sm sm:text-lg p-2 inline-block heading">
-              {author}
+              {author.split(" ")[0]}
             </span>
           </kbd>
           <kbd className="kbd transform hover:scale-105 duration-300">

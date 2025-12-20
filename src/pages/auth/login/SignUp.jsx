@@ -38,7 +38,6 @@ const SignUp = () => {
   }
 
   function handleSignUp(data) {
-    console.log(data);
     handleSignUpWithEmail(data.email, data.password).then((userCredential) => {
       const formData = new FormData();
       formData.append("image", data.photo[0]);
@@ -58,17 +57,17 @@ const SignUp = () => {
           }).then(() => {
             if (userCredential.user.accessToken) {
               setUser(userCredential.user);
-              console.log(userCredential.user);
               axiosSecure.post("/user", userCredential.user)
               navigate(location.state ? location.state : "/");
               toast.success("Account created sucessfully!");
             }
-          });
+          })
         });
-    });
+    }).catch(err=>toast.error(err.code))
   }
   return (
     <div className="flex items-center justify-center min-h-[50vh] my-10">
+      <title>BookCurier | SignUp</title>
       <form
         className="w-full max-w-lg shadow bg-base-100 px-8 py-8 rounded-2xl border border-blue-100"
         onSubmit={handleSubmit(handleSignUp)}

@@ -47,8 +47,8 @@ const AddBook = () => {
     const image1 = await imageUpload(data.image1[0]);
     const image2 = await imageUpload(data.image2[0]);
     const userData = {
-      title: data.title,
-      author: data.author,
+      title: data.title.trim(),
+      author: data.author.trim(),
       publication: data.publication,
       image1: image1.data.display_url,
       image2: image2.data.display_url,
@@ -77,7 +77,12 @@ const AddBook = () => {
 
   return (
     <div className="max-w-[1440px] mx-auto my-10 rounded-2xl bg-base-100 p-4 shadow border border-blue-100">
+      <title>BookCurier | Add Book</title>
       <div className="max-w-7xl mx-auto">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
+        </div>
         <h2 className="text-center text-4xl md:text-5xl font-extrabold text-blue-600 heading mt-6">
           Add a Book
         </h2>

@@ -22,7 +22,7 @@ const LatestBooks = () => {
 
   return (
     <div className="my-10 text-center">
-      <div className="text-center">
+      <div className=" text-center my-4">
         <h2
           className=" text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
           data-aos="fade-up"

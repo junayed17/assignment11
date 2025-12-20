@@ -42,6 +42,7 @@ const Login = () => {
   }
   return (
     <div className="flex items-center justify-center min-h-[50vh]  my-10">
+      <title>BookCurier | Login</title>
       <form
         action=""
         className="w-full max-w-lg shadow bg-base-100 px-8 py-8 rounded-2xl border border-blue-100"
@@ -82,7 +83,7 @@ const Login = () => {
             </label>
             <input
               class="text-sm custom-input w-full px-4 py-4 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 "
-              placeholder="Example@gmail.com"
+              placeholder="Ab!1.."
               type="text"
               id="pass"
               {...register("password", { required: "Password is required" })}
