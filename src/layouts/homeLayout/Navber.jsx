@@ -22,9 +22,9 @@ const Navber = () => {
   }, []);
 
   const linkBaseStyle =
-    "text-sm font-semibold transition-all duration-300 px-2 py-1 hover:text-blue-500 heading";
+    "text-sm font-semibold transition-all duration-300 px-2 py-1 hover:text-blue-500 heading text-slate-500 dark:text-slate-400";
   const activeStyle = "text-blue-600 heading";
-  const normalStyle = "text-base-400 heading";
+  const normalStyle = "heading";
 
   let linksData = [
     { to: "/", name: "Home" },

@@ -3,6 +3,7 @@ import Book from "../../components/Book";
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 const LatestBooks = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,31 +23,17 @@ const LatestBooks = () => {
 
   return (
     <div className="my-10 text-center">
-      <div className=" text-center my-4">
-        <h2
-          className=" text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
-          data-aos="fade-up"
-        >
-          Latest Books Just for You
-        </h2>
-
-        <div
-          className="h-1 w-32 bg-blue-600 mx-auto rounded-full mb-4"
-          data-aos="fade-up"
-        ></div>
-
-        <p className="text-blue-500 text-lg bodyFont" data-aos="fade-up">
-          Freshly added books — explore the newest titles and read what’s
-          trending now.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
+      <SectionTitle
+        heading="Latest Books Just for You"
+        subHeading="Freshly added books — explore the newest titles and read what’s
+          trending now."
+      />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
         {data.map((book, index) => (
           <Book bookSetails={book} index={index} />
         ))}
       </div>
-
-      <Link
+      {/* <Link
         class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-8 mx-4 text-center"
         to="/books"
         data-aos="fade-up"
@@ -84,6 +71,36 @@ const LatestBooks = () => {
         <span class="relative text-sm md:text-lg font-bold heading">
           Explore Books
         </span>
+      </Link> */}
+
+      <Link
+        to="/books"
+        data-aos="fade-up"
+        // এখানে 'relative' এবং 'inline-block' যোগ করা হয়েছে
+        className="relative inline-block w-full py-4 mt-10 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
+      >
+        {/* বাটন এনিমেশন ইফেক্টস */}
+        <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
+
+        {/* টেক্সট কন্টেইনারে relative z-10 দেওয়া হয়েছে যাতে এটি এনিমেশনের উপরে থাকে */}
+        <div className="relative z-10 flex items-center justify-center gap-2">
+          <span className="uppercase tracking-[0.2em] text-xs">
+            View All
+          </span>
+          <svg
+            className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </div>
       </Link>
     </div>
   );

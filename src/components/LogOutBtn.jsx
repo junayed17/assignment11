@@ -42,7 +42,7 @@ const LogOutBtn = () => {
         <li>
           <Link
             to="/dashboard/myProfile"
-            className=" is-drawer-close:tooltip is-drawer-close:tooltip-right  "
+            className=" is-drawer-close:tooltip is-drawer-close:tooltip-right text-slate-500 dark:text-slate-400 "
             data-tip="My Profile"
           >
             <label
@@ -92,9 +92,7 @@ const LogOutBtn = () => {
             </svg>
           </span>
           <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
-          <span class="relative  font-semibold text-sm heading ">
-            Log Out
-          </span>
+          <span class="relative  font-semibold text-sm heading ">Log Out</span>
         </Link>
       </ul>
     </div>
