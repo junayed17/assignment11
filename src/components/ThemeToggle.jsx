@@ -19,7 +19,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="btn btn-circle bg-base-200 border-none shadow-md hover:scale-110 transition-all ml-2 text-2xl"
+      className="btn btn-circle bg-base-200 border-none shadow-md hover:scale-110 transition-all mr-2 text-2xl"
     >
       {theme === "light" ? <BsMoonStarsFill /> : <BsSunFill />}
     </button>
