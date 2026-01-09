@@ -6,7 +6,7 @@ import { Outlet } from "react-router";
 
 const HomeLayout = () => {
   return (
-    <div className="bg-base-200 mx-2">
+    <div className="mx-[2px]">
       <header>
         <Navber />
       </header>
