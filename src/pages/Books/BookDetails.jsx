@@ -53,12 +53,12 @@ const BookDetails = () => {
     queryKey: ["order", user?.email, iId],
     enabled: !!iId && !!user?.email,
     queryFn: async () => {
-      const result = await axiosSecure.get(`/order/${iId}?email=${user.email}`);
+      const result = await axiosSecure.get(`/order/${iId}?email=${user?.email}`);
       return result.data;
     },
   });
 
-  console.log(isOrdered._id);
+
 
   console.log(iId);
 
@@ -73,6 +73,30 @@ const BookDetails = () => {
   }
 
   function handleWish() {
+ if (!user || !user.email) {
+   Swal.fire({
+    title: "Login Required!",
+    text: "Please login to add this book to your wishlist.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Login Now",
+    cancelButtonText: "Cancel",
+    buttonsStyling: false, // ডিফল্ট স্টাইল বন্ধ করার জন্য
+    customClass: {
+      popup: 'rounded-2xl border-none shadow-2xl bg-base-100',
+      title: 'heading font-bold text-2xl',
+      // নিচের ক্লাসগুলো আপনার দেওয়া বাটনের মতো কাজ করবে
+      confirmButton: 'relative px-10 py-4 mx-2 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl active:scale-95 transition-all duration-300 min-w-[140px]',
+      cancelButton: 'relative px-10 py-4 mx-2 overflow-hidden font-bold text-white bg-orange-600 rounded-2xl active:scale-95 transition-all duration-300 min-w-[140px]'
+    }
+  }).then((result) => {
+    // এখানে 'onclick' এর কাজ করা হচ্ছে
+    if (result.isConfirmed) {
+      Navigate("/login"); // লগইন পেজে পাঠিয়ে দিবে
+    }
+  });
+    return; 
+  }
     const wishData = {
       bookId: data._id,
       user: user.email,
@@ -81,17 +105,46 @@ const BookDetails = () => {
       author: data.author,
       addedAt: new Date(),
     };
-    axiosSecure.post("/wishListBook", wishData).then((result) => {
+      axiosSecure.post("/wishListBook", wishData).then((result) => {
       if (result.data.insertedId) {
         toast.success("Added to wish list sucessfully");
-      }
-    });
+      }})
   }
   function handleShowModal() {
+    if (!user || !user.email) {
+   Swal.fire({
+    title: "Login Required!",
+    text: "Please login to add this book to your wishlist.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Login Now",
+    cancelButtonText: "Cancel",
+    buttonsStyling: false, // ডিফল্ট স্টাইল বন্ধ করার জন্য
+    customClass: {
+      popup: 'rounded-2xl border-none shadow-2xl bg-base-100',
+      title: 'heading font-bold text-2xl',
+      // নিচের ক্লাসগুলো আপনার দেওয়া বাটনের মতো কাজ করবে
+      confirmButton: 'relative px-10 py-4 mx-2 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl active:scale-95 transition-all duration-300 min-w-[140px]',
+      cancelButton: 'relative px-10 py-4 mx-2 overflow-hidden font-bold text-white bg-orange-600 rounded-2xl active:scale-95 transition-all duration-300 min-w-[140px]'
+    }
+  }).then((result) => {
+    // এখানে 'onclick' এর কাজ করা হচ্ছে
+    if (result.isConfirmed) {
+      Navigate("/login"); // লগইন পেজে পাঠিয়ে দিবে
+    }
+  });
+    return; 
+  }
     modalRef.current.showModal();
   }
 
   function handleBookOrder(UserData) {
+   
+ 
+
+
+
+
     UserData.sellerEmail = data.ownerEmail;
     UserData.bookId = data._id;
     UserData.orderAt = new Date();
@@ -148,40 +201,51 @@ const BookDetails = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-base-100 via-base-200 to-base-300 min-h-screen py-14 rounded-2xl my-10">
+    <div className="bg-gradient-to-br min-h-screen py-14 rounded-2xl my-12">
       <title>BookCurier | Book Details</title>
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
           {/* IMAGE */}
-          <div className="relative">
-            <div className="rounded-2xl overflow-hidden shadow-2xl group bg-base-100">
-              <img
-                src={img}
-                alt="Book Cover"
-                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-              />
-            </div>
+     <div className="relative lg:sticky lg:top-24"> 
+  {/* Main Image Wrapper */}
+  <div className="relative rounded-2xl overflow-hidden shadow-xl bg-white border border-base-300 mx-auto max-w-[400px]">
+    <div className="aspect-[3/4] w-full overflow-hidden group">
+      <img
+        src={img}
+        alt="Book Cover"
+        className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+      />
+    </div>
 
-            <div className="flex gap-4 mt-6 justify-center">
-              {[data.image1, data.image2].map((image, i) => (
-                <img
-                  key={i}
-                  src={image}
-                  onClick={() => setImg(image)}
-                  className={`w-20 h-28 rounded-xl object-cover cursor-pointer border-2 transition
-              ${
-                img === image
-                  ? "border-primary scale-105"
-                  : "border-base-300 hover:border-primary"
-              }`}
-                />
-              ))}
-            </div>
+    {/* Badge */}
+    <div className="absolute top-3 left-3">
+      <span className="bg-primary/90 backdrop-blur-md text-primary-content px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest shadow-lg">
+        New Arrival
+      </span>
+    </div>
+  </div>
 
-            <span className="absolute top-4 left-4 bg-primary text-primary-content px-4 py-1 rounded-full text-sm shadow heading">
-              New Arrival
-            </span>
-          </div>
+  {/* Thumbnail Selection */}
+  <div className="flex gap-3 mt-4 justify-center">
+    {[data.image1, data.image2].filter(Boolean).map((image, i) => (
+      <button
+        key={i}
+        onClick={() => setImg(image)}
+        className={`relative w-10 h-15 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+          img === image
+            ? "border-primary ring-2 ring-primary/20 scale-105 shadow-md"
+            : "border-base-300 opacity-60 hover:opacity-100"
+        }`}
+      >
+        <img
+          src={image}
+          className="w-full h-full object-cover"
+          alt={`Thumbnail ${i + 1}`}
+        />
+      </button>
+    ))}
+  </div>
+</div>
 
           {/* DETAILS */}
           <div className="space-y-6 text-base-content">
@@ -206,7 +270,7 @@ const BookDetails = () => {
               <span className="flex items-center gap-2 bg-primary/10 text-primary px-4 py-1 rounded-full text-sm sm:text-lg  bodyFont">
                 <FaBookOpen /> {data.category}
               </span>
-              <span className="flex items-center gap-2 text-base-content/80 text-sm sm:text-lg bodyFont">
+              <span className="flex items-center gap-2 text-base-content/80 text-sm sm:text-lg heading">
                 <FaUserEdit /> {data.author}
               </span>
             </div>
@@ -223,7 +287,7 @@ const BookDetails = () => {
             </div>
 
             {/* Description */}
-            <p className="leading-relaxed text-sm md:text-lg bodyFont text-base-content/80">
+            <p className="leading-relaxed text-sm md:text-lg bodyFont text-base-content/80 heading">
               {data.instruction}
             </p>
 
@@ -235,70 +299,57 @@ const BookDetails = () => {
 
             {/* CTA */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 items-center">
-              <button
-                class="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 mx-4"
-                type="button"
-                // onClick={handleBookOrder}
-                onClick={handleShowModal}
-              >
-                <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
-                <span class="absolute bottom-0 left-0 h-full -ml-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-auto h-full opacity-100 object-stretch"
-                    viewBox="0 0 487 487"
-                  >
-                    <path
-                      fill-opacity=".1"
-                      fill-rule="nonzero"
-                      fill="#FFF"
-                      d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"
-                    ></path>
-                  </svg>
-                </span>
-                <span class="absolute top-0 right-0 w-12 h-full -mr-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="object-cover w-full h-full"
-                    viewBox="0 0 487 487"
-                  >
-                    <path
-                      fill-opacity=".1"
-                      fill-rule="nonzero"
-                      fill="#FFF"
-                      d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"
-                    ></path>
-                  </svg>
-                </span>
-                <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
-                <span class="relative text-sm md:text-lg font-bold heading">
-                  Order now
-                </span>
-              </button>
+              
+           <button
+         onClick={handleShowModal}
+        // এখানে 'relative' এবং 'inline-block' যোগ করা হয়েছে
+        className="relative inline-block w-full py-4 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
+      >
+        {/* বাটন এনিমেশন ইফেক্টস */}
+        <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
 
-              <button
-                className="
-                h-15
-        flex items-center justify-center gap-x-2
-    border-2 border-red-300
-    hover:border-error hover:bg-error/10
-     px-4
-    rounded
-    text-base font-semibold
-    text-base-content
-    transition-all duration-300
-    heading
-    leading-none
-    mx-4
-  "
-                onClick={handleWish}
-              >
-                <FaHeart className="text-error text-lg transition-transform duration-300 group-hover:scale-110" />
-                <span>Wishlist</span>
-              </button>
+        {/* টেক্সট কন্টেইনারে relative z-10 দেওয়া হয়েছে যাতে এটি এনিমেশনের উপরে থাকে */}
+        <div className="relative z-10 flex items-center justify-center gap-2">
+          <span className="uppercase tracking-[0.2em] text-xs">
+            Order Now
+          </span>
+          <svg
+            className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </div>
+        
+      </button>
+
+
+
+<button
+  onClick={handleWish}
+  className="relative inline-block w-full py-4 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/wish active:scale-95 transition-all duration-300 text-center max-w-60"
+>
+  {/* বাটন এনিমেশন ইফেক্ট - Wishlist এর জন্য এখানে অরেঞ্জ/রেড ব্যবহার করা হয়েছে */}
+  <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover/wish:w-full group-hover/wish:h-80 opacity-100"></span>
+
+  {/* টেক্সট কন্টেইনার - এনিমেশনের উপরে থাকার জন্য z-10 */}
+  <div className="relative z-10 flex items-center justify-center gap-2">
+    <FaHeart className="text-white text-lg transition-transform duration-300 group-hover/wish:scale-125" />
+    <span className="uppercase tracking-[0.2em] text-xs">
+      Wishlist
+    </span>
+  </div>
+</button>
             </div>
 
-            {isOrdered._id ? (
+            {(user&&isOrdered?._id)&&(
               <div class="relative my-2" id="input">
                 <input
                   placeholder="Give a Review..."
@@ -319,8 +370,6 @@ const BookDetails = () => {
                   <IoMdAddCircle className="w-full h-full text-4xl" />
                 </button>
               </div>
-            ) : (
-              ""
             )}
           </div>
         </div>
@@ -380,7 +429,7 @@ const BookDetails = () => {
                     type="text"
                     id="name"
                     {...register("name", { required: "name is required" })}
-                    defaultValue={user.displayName}
+                    defaultValue={user?.displayName}
                     readOnly
                   />
                   {errors.name && (
@@ -403,7 +452,7 @@ const BookDetails = () => {
                     type="email"
                     id="email"
                     {...register("email")}
-                    defaultValue={user.email}
+                    defaultValue={user?.email}
                     readOnly
                   />
                 </div>
