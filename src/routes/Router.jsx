@@ -24,6 +24,7 @@ import AdminRoute from "./AdminRoute";
 import LibrarianRoute from "./LibrarianRoute";
 import WishList from "../pages/dashboard/WishList";
 import DashboardHome from "../pages/dashboard/DashboardHome";
+import Coverage from "../pages/Coverage/Coverage";
 
 const router = createBrowserRouter([
   {
@@ -37,18 +38,18 @@ const router = createBrowserRouter([
       {
         path: "/books",
         element: (
-          <PrivateRoute>
             <Books />
-          </PrivateRoute>
         ),
       },
       {
         path: "/book/details/:id",
         element: (
-          <PrivateRoute>
             <BookDetails />
-          </PrivateRoute>
         ),
+      },
+      {
+        path:"/coverage",
+        element:<Coverage/>
       },
       {
         path: "/login",

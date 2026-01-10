@@ -17,16 +17,11 @@ const Logo = () => {
         />
         <div className="absolute inset-0 bg-sky-400/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
-
       {/* ব্র্যান্ডের নাম - স্মল স্ক্রিনে হিডেন থাকবে, বড় স্ক্রিনে (lg) দেখাবে */}
       <div className="hidden lg:flex flex-col">
-        <h1 className="text-2xl xl:text-3xl tracking-tighter leading-none">
-          <span className="font-extrabold text-base-500 transition-colors duration-300 group-hover:text-blue-600 heading">
-            Book
-          </span>
-          <span className="ml-[-2px] font-light text-blue-500 italic ml-1">Courier</span>
-        </h1>
-
+       <h2 className="text-3xl font-black heading text-blue-600 tracking-tighter italic">
+              Book<span className="text-base-content">Courier</span>
+            </h2>
         {/* এনিমেটেড আন্ডারলাইন */}
         <div className="h-[2px] w-0 bg-gradient-to-r from-blue-600 to-transparent group-hover:w-full transition-all duration-500" />
       </div>

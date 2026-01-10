@@ -8,25 +8,25 @@ import LogOutBtn from "../../components/LogOutBtn";
 const Navber = () => {
   const { user } = useAuthHook();
   const [isScrolled, setIsScrolled] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const linkBaseStyle =
-    "text-sm font-semibold transition-all duration-300 px-2 py-1 hover:text-blue-500 heading text-slate-500 dark:text-slate-400";
-  const activeStyle = "text-blue-600 heading";
-  const normalStyle = "heading";
+  // লজিক ফিক্স: কালারগুলো এখন কন্ডিশনাল হবে
+  const getLinkStyle = ({ isActive }) => {
+    return `text-sm font-bold transition-all duration-300 px-3 py-1 heading tracking-wider ${
+      isActive 
+        ? "text-blue-600 dark:text-blue-400 underline underline-offset-4 decoration-2" 
+        : "text-slate-500 dark:text-slate-400 hover:text-blue-500"
+    }`;
+  };
 
-  let linksData = [
+  const linksData = [
     { to: "/", name: "Home" },
     { to: "/books", name: "Books" },
     { to: "/coverage", name: "Coverage" },
@@ -37,24 +37,14 @@ const Navber = () => {
     <>
       {linksData.map((link, index) => (
         <li key={index}>
-          <NavLink
-            to={link.to}
-            className={({ isActive }) =>
-              `${linkBaseStyle} ${isActive ? activeStyle : normalStyle}`
-            }
-          >
+          <NavLink to={link.to} className={getLinkStyle}>
             {link.name.toUpperCase()}
           </NavLink>
         </li>
       ))}
       {user && (
         <li>
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              `${linkBaseStyle} ${isActive ? activeStyle : normalStyle}`
-            }
-          >
+          <NavLink to="/dashboard" className={getLinkStyle}>
             DASHBOARD
           </NavLink>
         </li>
@@ -64,39 +54,23 @@ const Navber = () => {
 
   return (
     <div
-      className={`max-w-[1440px] fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out z-200
-  ${
-    isScrolled
-      ? "top-0 w-full mt-0 shadow-lg bg-base-100/90 backdrop-blur-xl"
-      : "top-4 w-full  mt-0 px-2"
-  }`}
+      className={`max-w-[1440px] fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ease-in-out px
+      ${isScrolled ? "top-0 w-full" : "top-4 w-full"}`}
     >
       <div
-        className={`navbar bg-base-100 shadow-[0_4px_12px_rgba(0,0,0,0.25)] rounded-xl transition-all duration-500 
-        ${isScrolled ? "rounded-none" : "rounded-3xl"}`}
+        className={`navbar bg-base-100/80 backdrop-blur-md transition-all duration-500 border border-base-300/50
+        ${isScrolled 
+          ? "rounded-none shadow-md py-2" 
+          : "rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.12)] py-3 px-6"}`}
       >
         <div className="navbar-start">
-          <div className="dropdown z-10">
-            <div tabIndex={0} role="button" className="btn-ghost lg:hidden p-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
             </div>
-            <ul
-              tabIndex={-1}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-4 shadow-xl border border-gray-100"
-            >
+            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-2xl z-50 mt-3 w-52 p-4 shadow-2xl border border-base-300">
               {links}
             </ul>
           </div>
@@ -104,51 +78,22 @@ const Navber = () => {
         </div>
 
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-2">{links}</ul>
+          <ul className="menu menu-horizontal px-1 gap-2">
+            {links}
+          </ul>
         </div>
 
-        <div className="navbar-end gap-2">
+        <div className="navbar-end gap-3">
           <ThemeToggle />
           {user ? (
             <LogOutBtn />
           ) : (
             <Link
               to="/login"
-              class="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group"
+              className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden font-bold text-white bg-gray-900 dark:bg-blue-600 rounded-xl group transition-all duration-300 active:scale-95 shadow-lg"
             >
-              <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
-              <span class="absolute bottom-0 left-0 h-full -ml-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="w-auto h-full opacity-100 object-stretch"
-                  viewBox="0 0 487 487"
-                >
-                  <path
-                    fill-opacity=".1"
-                    fill-rule="nonzero"
-                    fill="#FFF"
-                    d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="absolute top-0 right-0 w-12 h-full -mr-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="object-cover w-full h-full"
-                  viewBox="0 0 487 487"
-                >
-                  <path
-                    fill-opacity=".1"
-                    fill-rule="nonzero"
-                    fill="#FFF"
-                    d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-200"></span>
-              <span class="relative  font-semibold text-sm heading ">
-                Login
-              </span>
+              <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+              <span className="relative text-sm heading">Login</span>
             </Link>
           )}
         </div>

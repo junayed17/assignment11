@@ -1,10 +1,11 @@
 import React from "react";
 import Slider from "./slider/Slider";
-import Coverage from "./Coverage";
+// import Coverage from "./Coverage";
 import LatestBooks from "./LatestBooks";
 import WhyChooseUs from "./WhyChooseUs";
 import HowItWork from "./HowItWorks";
 import Overview from "./Overview";
+import Partner from "./Partner";
 
 const HomePage = () => {
   return (
@@ -12,11 +13,10 @@ const HomePage = () => {
       <title>BookCurier | Home</title>
       <Slider />
       <LatestBooks />
-      <Coverage />
       <WhyChooseUs />
       <Overview />
-
       <HowItWork />
+      <Partner/>
     </div>
   );
 };

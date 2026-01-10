@@ -101,6 +101,7 @@ const LatestBooks = () => {
             />
           </svg>
         </div>
+        
       </Link>
     </div>
   );

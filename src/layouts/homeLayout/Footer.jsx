@@ -1,105 +1,100 @@
 import { NavLink } from "react-router";
-import { AuthContextData } from "../../contextProviders/AuthContext";
 import useAuthHook from "../../customHook/useAuthHook";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaXTwitter, FaFacebook, FaYoutube, FaEnvelope, FaPhone } from "react-icons/fa6";
 
 const Footer = () => {
-  const {user}=useAuthHook()
+  const { user } = useAuthHook();
+ // লজিক ফিক্স: কালারগুলো এখন কন্ডিশনাল হবে
+  const getLinkStyle = ({ isActive }) => {
+    return `text-sm font-bold transition-all duration-300 px-3 py-1 heading tracking-wider ${
+      isActive 
+        ? "text-blue-600 dark:text-blue-400 underline underline-offset-4 decoration-2" 
+        : "text-slate-500 dark:text-slate-400 hover:text-blue-500"
+    }`;
+  };
 
-  
+  const linksData = [
+    { to: "/", name: "Home" },
+    { to: "/books", name: "Books" },
+    { to: "/coverage", name: "Coverage" },
+    { to: "/Aboutus", name: "About" },
+  ];
+ const links = (
+    <>
+      {linksData.map((link, index) => (
+        <li key={index}>
+          <NavLink to={link.to} className={getLinkStyle}>
+            {link.name.toUpperCase()}
+          </NavLink>
+        </li>
+      ))}
+      {user && (
+        <li>
+          <NavLink to="/dashboard" className={getLinkStyle}>
+            DASHBOARD
+          </NavLink>
+        </li>
+      )}
+    </>
+  );
+
   return (
-    <div
-      className="footer footer-horizontal footer-center bg-base-100 text-base-content rounded   px-4  md:px-10 py-10 rounded-2xl shadow-2xl "
+    <footer 
+      className="relative bg-transparent border-t border-base-300 pt-10 pb-6 mt-16"
       data-aos="fade-up"
     >
-      <h3 className="text-2xl font-semibold heading">Quick Links</h3>
-      <nav className="grid grid-cols-3  sm:grid-col-4 gap-4 justify-center items-center">
-        <NavLink
-          to="/"
-          className=" font-medium text-[#00a8ff] bodyFont hover:text-blue-500 duration-300 text-lg"
-        >
-          Home
-        </NavLink>
-
-        <NavLink
-          to="/books"
-          className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300"
-        >
-          Books
-        </NavLink>
-
-        {user ? (
-          <NavLink
-            to="/dashboard"
-            className="text-lg font-medium bodyFont text-[#00a8ff] hover:text-blue-500 duration-300"
-          >
-            Dashboard
-          </NavLink>
-        ) : (
-          ""
-        )}
-      </nav>
-      <div className="mb-6" data-aos="fade-up">
-        <h3 className="text-2xl font-semibold mb-2 heading">Contact</h3>
-        <a
-          href="mailto:BookCourier@gmail.com"
-          className="text-base text-[#00a8ff] hover:text-blue-500 duration-300"
-        >
-          Email: BookCourier@gmail.com
-        </a>
-        <a
-          href="tel:+880 123 456 789"
-          className="text-base text-[#00a8ff] hover:text-blue-500 duration-300"
-        >
-          Mobile:+880 123 456 789
-        </a>
-        <p className="text-base">Address: 123 Street, City, Bangladesh</p>
+      <div className="max-w-[1440px] mx-auto flex flex-col items-center gap-6">
+        
+        {/* Brand & Socials - One Line on Desktop */}
+        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6">
+          <div className="text-left">
+                  <div className="hidden lg:flex flex-col">
+       <h2 className="text-2xl font-black heading text-blue-600 tracking-tighter italic">
+              Book<span className="text-base-content">Courier</span>
+            </h2>
       </div>
-      <nav data-aos="fade-up">
-        <div className="grid grid-flow-col gap-4">
-          <a>
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-            </svg> */}
-            <FaXTwitter  className="w-6 h-6 font-bold"/>
-          </a>
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-            </svg>
-          </a>
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-            </svg>
-          </a>
+            <p className="text-xs bodyFont opacity-60">Connecting Stories, Delivering Joy.</p>
+          </div>
+
+          {/* Quick Links */}
+          <nav className="flex gap-6 text-sm font-bold uppercase tracking-wider">
+          <ul className="style-none flex gap-6 text-sm font-bold uppercase tracking-wider">
+             {
+            links
+           }
+          </ul>
+          </nav>
+
+          {/* Social Icons - Small & Clean */}
+          <div className="flex gap-4">
+            <a href="https://x.com/" className="text-base-content/60 hover:text-blue-600 transition-transform hover:-translate-y-1"><FaXTwitter size={18} /></a>
+            <a href="https://www.youtube.com/watch?v=pyFGIDVaVck" className="text-base-content/60 hover:text-red-600 transition-transform hover:-translate-y-1"><FaYoutube size={20} /></a>
+            <a href="https://www.facebook.com/junayed.ahmed.10690203" className="text-base-content/60 hover:text-blue-700 transition-transform hover:-translate-y-1"><FaFacebook size={18} /></a>
+          </div>
         </div>
-      </nav>
-      <aside >
-        <p className="text-base">
-          Copyright © {new Date().getFullYear()} - All right reserved by
-          <b className="ml-1">BookCourier Ltd</b>
-        </p>
-      </aside>
-    </div>
+
+        {/* Contact Info - Compact Row */}
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-medium opacity-70 border-y border-base-300/50 py-4 w-full">
+          <div className="flex items-center gap-2">
+            <FaEnvelope className="text-blue-600" />
+            <a href="mailto:BookCourier@gmail.com">BookCourier@gmail.com</a>
+          </div>
+          <div className="flex items-center gap-2">
+            <FaPhone className="text-blue-600" />
+            <a href="tel:+880123456789">+880 123 456 789</a>
+          </div>
+          <div className="text-center">123 Street, City, Bangladesh</div>
+        </div>
+
+        {/* Copyright - Very Small */}
+        <div className="text-[10px] opacity-50 uppercase tracking-[0.2em]">
+          © {new Date().getFullYear()} - <span className="font-bold">BookCourier Ltd</span>
+        </div>
+      </div>
+
+      {/* নিচের সেই সিগনেচার গ্রেডিয়েন্ট লাইন */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-sky-400"></div>
+    </footer>
   );
 };
 

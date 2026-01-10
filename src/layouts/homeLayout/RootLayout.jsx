@@ -13,7 +13,7 @@ const HomeLayout = () => {
       <main className="max-w-[1440px] mx-2 lg:mx-auto min-h-[70vh]">
         <Outlet />
       </main>
-      <footer className="max-w-[1440px] mx-2 lg:mx-auto align-bottom">
+      <footer className="max-w-[1440px] mx-4 lg:mx-auto align-bottom">
         <Footer />
       </footer>
     </div>
