@@ -7,6 +7,7 @@ import L from "leaflet";
 // Netlify তে ইমেজ পাথ ঠিক রাখার জন্য এই কোডটুকু প্রয়োজন
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -50,23 +51,13 @@ const Coverage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mt-24">
       <div className="mb-10 mt-20 text-center">
-        <h2
-          className="text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
-          data-aos="fade-up"
-        >
-          Library Locations Across the City
-        </h2>
+        <SectionTitle
+          heading="Library Locations Across the City"
+          subHeading="Order your favorite books and enjoy fast, hassle-free delivery."
+        />
 
-        <div
-          className="h-1 w-32 bg-blue-600 mx-auto rounded-full mb-4"
-          data-aos="fade-up"
-        ></div>
-
-        <p className="text-blue-500 text-lg bodyFont" data-aos="fade-up">
-          Order your favorite books and enjoy fast, hassle-free delivery.
-        </p>
         <div className="flex items-center justify-center mt-5">
           <input
             className="bg-zinc-200 text-zinc-600 font-mono ring-1 ring-zinc-400 focus:ring-2 focus:ring-blue-500 outline-none duration-300 placeholder:text-zinc-600 placeholder:opacity-50 rounded-full px-4 py-2 shadow-md focus:shadow-lg focus:shadow-ring-blue-500"
@@ -182,7 +173,7 @@ const Coverage = () => {
         <MapContainer
           center={position}
           zoom={7}
-          className="h-[90vh] rounded-2xl"
+          className="h-[90vh] rounded-2xl relative z-[1]"
           scrollWheelZoom={false}
           ref={posRef}
         >

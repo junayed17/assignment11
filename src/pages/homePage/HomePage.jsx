@@ -6,6 +6,7 @@ import WhyChooseUs from "./WhyChooseUs";
 import HowItWork from "./HowItWorks";
 import Overview from "./Overview";
 import Partner from "./Partner";
+import FAQ from "./FAQ";
 
 const HomePage = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage = () => {
       <Overview />
       <HowItWork />
       <Partner/>
+      <FAQ/>
     </div>
   );
 };

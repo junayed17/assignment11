@@ -3,6 +3,7 @@ import useAxiosSecure from "../../customHook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Book from "../../components/Book";
 import Loader from "../../components/Loader";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 const Books = () => {
   const axiosSecure = useAxiosSecure();
@@ -14,7 +15,7 @@ const Books = () => {
     data = [],
     isFetching,
   } = useQuery({
-    queryKey: ["latest", searchTerm,sortItem],
+    queryKey: ["latest", searchTerm, sortItem],
     queryFn: async () => {
       let url = "/allBook";
 
@@ -30,33 +31,22 @@ const Books = () => {
 
   function handleSearch() {
     const bookName = document.querySelector("#floating_outlined").value;
-    setSearchTerm(bookName)
+    setSearchTerm(bookName);
   }
 
-  
   if (!data) {
-    return <Loader/>
+    return <Loader />;
   }
 
-  
   return (
-    <div className="my-10">
+    <div className="mt-24">
       <title>BookCurier | Books</title>
       <div className="max-w-[500px] mx-auto text-center">
-        <h2
-          className=" text-3xl md:text-4xl font-bold text-blue-600 mb-3 heading"
-          data-aos="fade-left"
-        >
-          Discover Your Next Favorite Book
-        </h2>
-        <div
-          className="h-1 w-32 bg-blue-600 mx-auto rounded-full mb-4"
-          data-aos="fade-up"
-        ></div>
+        <SectionTitle
+          heading="Discover Your Next Favorite Book"
+          subHeading="From classics to latest releases, explore every book we have."
+        />
 
-        <p className="text-blue-500 text-lg bodyFont" data-aos="fade-right">
-          From classics to latest releases, explore every book we have.
-        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2  items-center justify-center gap-2">
           <div class="relative my-2" id="input">
             <input
@@ -108,7 +98,7 @@ const Books = () => {
           </select>
         </div>
       </div>
- <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
         {data.map((book, index) => (
           <Book bookSetails={book} index={index} />
         ))}

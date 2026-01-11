@@ -39,37 +39,51 @@ const Footer = () => {
   );
 
   return (
-    <footer 
-      className="relative bg-transparent border-t border-base-300 pt-10 pb-6 mt-16"
+    <footer
+      className="relative bg-transparent border-t border-base-300 pt-10 pb-6 mt-16 px-2"
       data-aos="fade-up"
     >
       <div className="max-w-[1440px] mx-auto flex flex-col items-center gap-6">
-        
         {/* Brand & Socials - One Line on Desktop */}
         <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6">
           <div className="text-left">
-                  <div className="hidden lg:flex flex-col">
-       <h2 className="text-2xl font-black heading text-blue-600 tracking-tighter italic">
-              Book<span className="text-base-content">Courier</span>
-            </h2>
-      </div>
-            <p className="text-xs bodyFont opacity-60">Connecting Stories, Delivering Joy.</p>
+            <div className="hidden lg:flex flex-col">
+              <h2 className="text-2xl font-black heading text-blue-600 tracking-tighter italic">
+                Book<span className="text-base-content">Courier</span>
+              </h2>
+            </div>
+            <p className="text-xs bodyFont opacity-60">
+              Connecting Stories, Delivering Joy.
+            </p>
           </div>
 
           {/* Quick Links */}
           <nav className="flex gap-6 text-sm font-bold uppercase tracking-wider">
-          <ul className="style-none flex gap-6 text-sm font-bold uppercase tracking-wider">
-             {
-            links
-           }
-          </ul>
+            <ul className="style-none grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-5 items-center justify-center text-sm font-bold uppercase tracking-wider sizing-border-box p-0 list-none">
+              {links}
+            </ul>
           </nav>
 
           {/* Social Icons - Small & Clean */}
           <div className="flex gap-4">
-            <a href="https://x.com/" className="text-base-content/60 hover:text-blue-600 transition-transform hover:-translate-y-1"><FaXTwitter size={18} /></a>
-            <a href="https://www.youtube.com/watch?v=pyFGIDVaVck" className="text-base-content/60 hover:text-red-600 transition-transform hover:-translate-y-1"><FaYoutube size={20} /></a>
-            <a href="https://www.facebook.com/junayed.ahmed.10690203" className="text-base-content/60 hover:text-blue-700 transition-transform hover:-translate-y-1"><FaFacebook size={18} /></a>
+            <a
+              href="https://x.com/"
+              className="text-base-content/60 hover:text-blue-600 transition-transform hover:-translate-y-1"
+            >
+              <FaXTwitter size={18} />
+            </a>
+            <a
+              href="https://www.youtube.com/watch?v=pyFGIDVaVck"
+              className="text-base-content/60 hover:text-red-600 transition-transform hover:-translate-y-1"
+            >
+              <FaYoutube size={20} />
+            </a>
+            <a
+              href="https://www.facebook.com/junayed.ahmed.10690203"
+              className="text-base-content/60 hover:text-blue-700 transition-transform hover:-translate-y-1"
+            >
+              <FaFacebook size={18} />
+            </a>
           </div>
         </div>
 
@@ -88,7 +102,8 @@ const Footer = () => {
 
         {/* Copyright - Very Small */}
         <div className="text-[10px] opacity-50 uppercase tracking-[0.2em]">
-          © {new Date().getFullYear()} - <span className="font-bold">BookCourier Ltd</span>
+          © {new Date().getFullYear()} -{" "}
+          <span className="font-bold">BookCourier Ltd</span>
         </div>
       </div>
 
