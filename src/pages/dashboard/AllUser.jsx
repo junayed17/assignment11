@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuthHook from "../../customHook/useAuthHook";
 import Loader from "../../components/Loader";
 import toast from "react-hot-toast";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 const AllUser = () => {
   const axiosSecure = useAxiosSecure();
@@ -60,19 +61,17 @@ const AllUser = () => {
           <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
           <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
-          All Users
-        </h2>
-        <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-base-600 dark:text-base-300">
-          Monitor, control, and manage user roles and access
-        </p>
+        <SectionTitle
+          heading="All Users"
+          subHeading="Monitor, control, and manage user roles and access"
+        />
         <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-blue-600  font-bold">
-          total {data.length} posts
+          total {data.length} users
         </p>
       </div>
       <table className="table w-full text-sm">
         {/* head */}
-        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg bodyFont">
+        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg heading">
           <tr>
             <th>#</th>
             <th>Name</th>
@@ -103,11 +102,34 @@ const AllUser = () => {
               </td>
 
               <td className="text-center flex items-center justify-center gap-2">
-                <button
+                {/* <div className="grid grid-cols-2 gap-2"> */}
+                <div className="flex items-center justify-center w-full">
+                  <button
+                    className="relative block w-full min-w-28 px-2 py-2 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
+                    type="button"
+                    onClick={() => handleAdminLibrarian("Admin", user._id)}
+                  >
+                    <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
+                    <span className="relative text-sm heading">Make Admin</span>
+                  </button>
+                </div>
+                <div className="flex items-center justify-center w-full">
+                  <button
+                    className="relative inline-block w-full min-w-32 px-2 py-2 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
+                    type="button"
+                    onClick={() => handleAdminLibrarian("Librarian", user._id)}
+                  >
+                    <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
+                    <span className="relative text-sm heading">
+                      Make Librarian
+                    </span>
+                  </button>
+                  {/* </div> */}
+                </div>
+
+                {/* <button
                   disabled={user?.isApprove == "Accepted"}
                   class={`relative inline-flex items-center justify-center min-w-32 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
-                  type="button"
-                  onClick={() => handleAdminLibrarian("Admin", user._id)}
                 >
                   {}
 
@@ -148,8 +170,6 @@ const AllUser = () => {
                 <button
                   disabled={user?.isApprove == "Accepted"}
                   class={`relative inline-flex items-center justify-center w-32 px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4 disabled:opacity-50 disabled:cursor-not-allowed`}
-                  type="button"
-                  onClick={() => handleAdminLibrarian("Librarian", user._id)}
                 >
                   <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-orange-600 rounded-full group-hover:w-full group-hover:h-56"></span>
                   <span class="absolute bottom-0 left-0 h-full -ml-2">
@@ -184,7 +204,7 @@ const AllUser = () => {
                   <span class="relative text-sm  font-bold heading">
                     Make Librarian
                   </span>
-                </button>
+                </button> */}
               </td>
             </tr>
           ))}

@@ -1,4 +1,3 @@
-
 import useAxiosSecure from "../../customHook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
@@ -6,14 +5,13 @@ import Loader from "../../components/Loader";
 
 import { MdCancel } from "react-icons/md";
 import useAuthHook from "../../customHook/useAuthHook";
-
-
+import IfNoItems from "../../components/IfNoItems";
 
 const WishList = () => {
-  const {user}=useAuthHook()
-const axiosSecure=useAxiosSecure()
+  const { user } = useAuthHook();
+  const axiosSecure = useAxiosSecure();
 
-console.log(user.email);
+  console.log(user.email);
 
   const {
     data = [],
@@ -28,7 +26,7 @@ console.log(user.email);
     },
   });
 
-console.log(data);
+  console.log(data);
 
   return (
     <div className="overflow-x-scroll md:overflow-hidden rounded-2xl shadow-md border border-blue-100 dark:border-base-700 ">
@@ -58,19 +56,27 @@ console.log(data);
 
         {/* body */}
         <tbody className="bg-base-200 text-base-700 dark:text-base-200 text-sm sm:text-lg bodyFont">
-          {data.map((book, index) => (
-            <tr
-              className="hover:bg-base-50  hover:bg-blue-100 duration-300 py-0"
-              key={book._id}
-            >
-              <th>{index + 1}</th>
+          {data.length < 1 ? (
+            <IfNoItems
+              text="“No books have been added to the wishlist yet. Please add a book first.”"
+              to="/books"
+              btnText="Explore books"
+            />
+          ) : (
+            data.map((book, index) => (
+              <tr
+                className="hover:bg-base-50  hover:bg-blue-100 duration-300 py-0"
+                key={book._id}
+              >
+                <th>{index + 1}</th>
 
-              <td className="font-medium">{book.title}</td>
+                <td className="font-medium">{book.title}</td>
 
-              <td>{new Date(book.addedAt).toLocaleString()}</td>
-              <td className="font-medium">{book.author}</td>
-            </tr>
-          ))}
+                <td>{new Date(book.addedAt).toLocaleString()}</td>
+                <td className="font-medium">{book.author}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

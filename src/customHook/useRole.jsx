@@ -25,6 +25,7 @@ const useRole = () => {
   }, [user?.email]);
 
 
+console.log(data);
 
 
 

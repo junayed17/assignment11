@@ -4,6 +4,7 @@ import useAxiosSecure from "../../customHook/useAxiosSecure";
 import useAuthHook from "../../customHook/useAuthHook";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 const AddBook = () => {
   const { user } = useAuthHook();
@@ -83,9 +84,8 @@ const AddBook = () => {
           <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
           <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
         </div>
-        <h2 className="text-center text-4xl md:text-5xl font-extrabold text-blue-600 heading mt-6">
-          Add a Book
-        </h2>
+
+        <SectionTitle heading={"Add a Book"} subHeading="Post Your Books here"/>
 
         <form onSubmit={handleSubmit(onSubmit)} id="form">
           <div className="py-10">

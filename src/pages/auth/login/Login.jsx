@@ -47,9 +47,9 @@ const Login = () => {
 
   // Demo User Handler - Fixed
   const handleDemoLogin = (role) => {
-    if (role === "user") {
-      setValue("email", "abcdefgh@gmail.com");
-      setValue("password", "Abcdefgh@1");
+    if (role === "Librarian") {
+      setValue("email", "librarian@gmail.com");
+      setValue("password", "Librarian@11");
     } else {
       setValue("email", "Admin@gmail.com");
       setValue("password", "Admin@11");
@@ -71,10 +71,10 @@ const Login = () => {
             <button
               className="relative block w-full px-8 py-2.5 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
               type="button"
-              onClick={() => handleDemoLogin("user")}
+              onClick={() => handleDemoLogin("Librarian")}
             >
               <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
-              <span className="relative text-sm heading">Demo User</span>
+              <span className="relative text-sm heading">Demo Librarian</span>
             </button>
           </div>
           <div className="flex items-center justify-center w-full">

@@ -5,6 +5,7 @@ import useAxiosSecure from "../../customHook/useAxiosSecure";
 import Loader from "../../components/Loader";
 import dayjs from "dayjs";
 import toast from "react-hot-toast";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 const OrdersOnMyBook = () => {
   const axiosSecure = useAxiosSecure();
@@ -42,11 +43,8 @@ const OrdersOnMyBook = () => {
 
   async function deleteOrder(id) {
     const result = await axiosSecure.delete(`/order/delete/${id}`);
-    console.log(result.data);
     refetch();
   }
-
-  console.log(data);
 
   if (isLoading) {
     return <Loader />;
@@ -60,17 +58,15 @@ const OrdersOnMyBook = () => {
           <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
           <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
-          Orders on My Books
-        </h2>
-        <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-base-600 dark:text-base-300">
-          See all customer orders for your books, track order status, and manage
-          actions easily.
-        </p>
+        <SectionTitle
+          heading="Orders on My Books"
+          subHeading=" See all customer orders for your books, track order status, and manage
+          actions easily."
+        />
       </div>
       <table className="table w-full text-sm">
         {/* head */}
-        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg bodyFont">
+        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg heading">
           <tr>
             <th>#</th>
             <th>Title</th>
@@ -100,9 +96,7 @@ const OrdersOnMyBook = () => {
               <td>
                 <select
                   value={book.status}
-                  onChange={(e) =>
-                    handleStatusChange(book._id, e.target.value)
-                  }
+                  onChange={(e) => handleStatusChange(book._id, e.target.value)}
                   className={`px-3 py-1 rounded-full text-xs font-semibold cursor-pointer
       border outline-none
       ${
@@ -127,7 +121,10 @@ const OrdersOnMyBook = () => {
 
               <td className="text-center flex items-center justify-center gap-2">
                 <button
-                  class="relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-md group my-4"
+                  disabled={book.payment === true}
+                  className={`relative inline-flex items-center justify-center px-4 py-2 overflow-hidden tracking-tighter text-white rounded-md group my-4
+    ${book.payment ? "bg-gray-400 cursor-not-allowed" : "bg-gray-800"}
+  `}
                   type="button"
                   onClick={() => {
                     deleteOrder(book._id);

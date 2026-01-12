@@ -5,6 +5,7 @@ import useAuthHook from "../../customHook/useAuthHook";
 import Loader from "../../components/Loader";
 import dayjs from "dayjs";
 import toast from "react-hot-toast";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 const AllPost = () => {
   const axiosSecure = useAxiosSecure();
@@ -50,29 +51,23 @@ const AllPost = () => {
     refetch();
   }
 
+  const handlePublishUnpublish = async (status, bookId) => {
+    try {
+      const res = await axiosSecure.patch(`/book/pubUnpub/${bookId}`, {
+        status,
+      });
 
-
-const handlePublishUnpublish = async (status, bookId) => {
-  
-  try {
-    const res = await axiosSecure.patch(`/book/pubUnpub/${bookId}`, {
-      status,
-    });
-
-    if (res.data.modifiedCount > 0) {
-      toast.success(`Book ${status} successfully`);
-      refetch();
-    } else {
-      toast.error("No changes made");
+      if (res.data.modifiedCount > 0) {
+        toast.success(`Book ${status} successfully`);
+        refetch();
+      } else {
+        toast.error("No changes made");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!");
     }
-  } catch (error) {
-    console.error(error);
-    toast.error("Something went wrong!");
-  }
-};
-
-
-
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -86,26 +81,23 @@ const handlePublishUnpublish = async (status, bookId) => {
           <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
           <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
-          All Book Posts
-        </h2>
-        <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-base-600 dark:text-base-300">
-          View and manage all books posted by librarians
-        </p>
+        <SectionTitle
+          heading="All Book Posts"
+          subHeading=" View and manage all books posted by librarians"
+        />
         <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-blue-600  font-bold">
           total {data.length} posts
         </p>
       </div>
       <table className="table w-full text-sm">
         {/* head */}
-        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg bodyFont">
+        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg heading">
           <tr>
             <th>#</th>
             <th>Title</th>
             <th>Posted Date</th>
             <th>Author</th>
             <th>Publish status</th>
-            <th>Status</th>
             <th className="text-center">Action</th>
           </tr>
         </thead>
@@ -124,15 +116,6 @@ const handlePublishUnpublish = async (status, bookId) => {
               <td>{dayjs(book.createdAt).format("DD MMM YYYY, hh:mm A")}</td>
               <td className="font-medium">{book.author}</td>
               <td className="font-medium">{book.bookStatus}</td>
-              <td>
-                <span
-                  className="px-3 py-1 rounded-full text-xs font-semibold 
-            bg-green-100 text-green-600 
-            dark:bg-green-900 dark:text-green-300"
-                >
-                  {book.isApprove}
-                </span>
-              </td>
 
               <td className="text-center flex items-center justify-center gap-2">
                 <button
@@ -224,6 +207,10 @@ const handlePublishUnpublish = async (status, bookId) => {
                     Delete
                   </span>
                 </button>
+
+
+
+                
               </td>
             </tr>
           ))}

@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { MdCancel } from "react-icons/md";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import SectionTitle from "../../components/ScetionTitleAndSubTitle";
 
 const MyBooks = () => {
   const axiosSecure = useAxiosSecure();
@@ -65,7 +66,7 @@ const MyBooks = () => {
   async function  handleUnpbulishBook(id) {
     await axiosSecure.patch(`/book/unpublish/${id}`).then((result) => {
       if (result.data.modifiedCount) {
-        toast.success("book Delete sucessfully");
+        toast.success("book unpublish sucessfully");
       }
     });
     refetch();
@@ -116,11 +117,6 @@ const MyBooks = () => {
   const updatedRegion = useWatch({ control, name: "region" });
 
   const district = Districts(updatedRegion);
-
-
-
-
-  console.log(data);
   
 
   const onSubmit = async (data) => {
@@ -166,19 +162,18 @@ const MyBooks = () => {
           <div className="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-gradient-to-r from-blue-400/20 to-purple-400/20  rounded-full blur-[120px] animate-pulse"></div>
           <div className="absolute bottom-[-10%] right-[-5%] w-[30rem] h-[30rem] bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-[100px] animate-pulse"></div>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight heading text-center">
-          All My Book Posts
-        </h2>
-        <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-base-600 dark:text-base-300">
-          View and manage all books posted by You
-        </p>
+        <SectionTitle
+          heading={"All My Book Posts"}
+          subHeading="View and manage all books posted by You"
+        />
+        
         <p className="text-sm sm:text-lg md:text-2xl text-center bodyFont text-blue-600  font-bold">
           total {data.length} posts
         </p>
       </div>
       <table className="table w-full text-sm">
         {/* head */}
-        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg bodyFont">
+        <thead className="bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-200 text-sm sm:text-lg heading">
           <tr>
             <th>#</th>
             <th>Title</th>
