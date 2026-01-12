@@ -110,7 +110,7 @@ if (isFetching) {
             {/* List item */}
             <li>
               <NavLink
-                to="/dashboard/"
+                to="/dashboard"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="over View"
               >

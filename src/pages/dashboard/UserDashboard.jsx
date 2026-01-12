@@ -31,6 +31,7 @@ const UserDashboard = () => {
   });
 
   if (isLoading) return <Loader />;
+console.log(stats);
 
   // Bar chart data
   const categoryData =
