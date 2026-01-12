@@ -25,6 +25,7 @@ import LibrarianRoute from "./LibrarianRoute";
 import WishList from "../pages/dashboard/WishList";
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import Coverage from "../pages/Coverage/Coverage";
+import About from "../pages/about/About";
 
 const router = createBrowserRouter([
   {
@@ -37,19 +38,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/books",
-        element: (
-            <Books />
-        ),
+        element: <Books />,
       },
       {
         path: "/book/details/:id",
-        element: (
-            <BookDetails />
-        ),
+        element: <BookDetails />,
       },
       {
-        path:"/coverage",
-        element:<Coverage/>
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/coverage",
+        element: <Coverage />,
       },
       {
         path: "/login",

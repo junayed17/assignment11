@@ -30,7 +30,7 @@ const Navber = () => {
     { to: "/", name: "Home" },
     { to: "/books", name: "Books" },
     { to: "/coverage", name: "Coverage" },
-    { to: "/Aboutus", name: "About" },
+    { to: "/about", name: "About" },
   ];
 
   const links = (
