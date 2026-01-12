@@ -50,7 +50,10 @@ const Login = () => {
     if (role === "Librarian") {
       setValue("email", "librarian@gmail.com");
       setValue("password", "Librarian@11");
-    } else {
+    } else if (role === "user") {
+      setValue("email", "Monirul@gmail.com");
+      setValue("password", "Monirul@11");
+    } else{
       setValue("email", "Admin@gmail.com");
       setValue("password", "Admin@11");
     }
@@ -66,26 +69,44 @@ const Login = () => {
       >
         <FormTitle heading="Welcome Back" subHeading="Login with BoolQurier" />
 
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <div className="flex items-center justify-center w-full">
-            <button
-              className="relative block w-full px-8 py-2.5 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
-              type="button"
-              onClick={() => handleDemoLogin("Librarian")}
-            >
-              <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
-              <span className="relative text-sm heading">Demo Librarian</span>
-            </button>
-          </div>
-          <div className="flex items-center justify-center w-full">
-            <button
-              className="relative inline-block w-full px-8 py-2.5 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
-              type="button"
-              onClick={() => handleDemoLogin("admin")}
-            >
-              <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
-              <span className="relative text-sm heading">Demo Admin</span>
-            </button>
+        <div className="text-center">
+          <h4 className="p-2 text-base-200 rounded-2xl bg-blue-600 inline-block mb-4">Demo Accounts</h4>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {" "}
+            {/* ৩টি বাটনের জন্য grid-cols-3 ব্যবহার কর */}
+            {/* Demo Librarian */}
+            <div className="flex items-center justify-center w-full">
+              <button
+                className="relative inline-block w-full px-8 py-2.5 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
+                type="button"
+                onClick={() => handleDemoLogin("Librarian")}
+              >
+                <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
+                <span className="relative text-sm heading">Librarian</span>
+              </button>
+            </div>
+            {/* Demo Admin */}
+            <div className="flex items-center justify-center w-full">
+              <button
+                className="relative inline-block w-full px-8 py-2.5 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
+                type="button"
+                onClick={() => handleDemoLogin("admin")}
+              >
+                <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
+                <span className="relative text-sm heading">Admin</span>
+              </button>
+            </div>
+            {/* Demo User */}
+            <div className="flex items-center justify-center w-full">
+              <button
+                className="relative inline-block w-full px-8 py-2.5 overflow-hidden font-bold text-white bg-gray-900 rounded-2xl group/btn active:scale-95 transition-all duration-300 text-center max-w-60"
+                type="button"
+                onClick={() => handleDemoLogin("user")}
+              >
+                <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-blue-600 rounded-full group-hover/btn:w-full group-hover/btn:h-80 opacity-100"></span>
+                <span className="relative text-sm heading">User</span>
+              </button>
+            </div>
           </div>
         </div>
 
